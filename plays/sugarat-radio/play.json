@@ -1,0 +1,49 @@
+{
+  "id": "sugarat-radio",
+  "name": "Sugarat Radio",
+  "version": "0.1.1",
+  "stage": 1,
+  "target": "esp32s3",
+  "display": {
+    "width": 360,
+    "height": 360,
+    "touch": "single"
+  },
+  "defaultLanguage": "en",
+  "market": "US",
+  "entry": "main/main.c",
+  "playGuide": "PLAY.md",
+  "license": "Apache-2.0",
+  "validation": {
+    "desktopPreview": true,
+    "firmwareBuild": true,
+    "deviceVerified": false,
+    "report": "VALIDATION.md"
+  },
+  "configuration": [
+    "CONFIG_SUGARAT_RADIO_CURATED_URL",
+    "CONFIG_SUGARAT_RADIO_BROWSER_URL",
+    "CONFIG_SUGARAT_RADIO_DEFAULT_TIMEZONE",
+    "CONFIG_SUGARAT_WIFI_MAX_TX_POWER_DBM"
+  ],
+  "productId": "sdgoods-esp32s3-round",
+  "build": {
+    "sdkVersion": "5.5.4",
+    "projectName": "sugarat_radio",
+    "command": "idf.py -C plays/sugarat-radio -B /tmp/sugarat-radio-build build",
+    "partitionTable": "partitions.csv",
+    "minimumFlashBytes": 33554432
+  },
+  "community": {
+    "playId": 21,
+    "productKey": "sugarat-play-4",
+    "title": "Sugarat Radio · New Flow Integration Test",
+    "publishedVersion": "0.1.1",
+    "sourceUrl": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/tree/v0.3.5/plays/sugarat-radio",
+    "attachmentUrl": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-radio.tar.gz"
+  },
+  "sharedComponents": {
+    "lvgl": "shared/components/lvgl",
+    "sugarat_wifi_ui": "assets/components/sugarat-wifi-ui/components/sugarat_wifi_ui"
+  }
+}

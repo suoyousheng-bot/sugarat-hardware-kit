@@ -1,0 +1,49 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write hardware-kits/sugarat-hardware-kit/README.md
+/:
+  en: 33b5a41671c831d1
+  zh: 06f753de2f8ffc77
+/sugarat-hardware-kit-development-kit:
+  en: 71f529e326c3f7b6
+  zh: a5e10bca1e540d82
+/sugarat-hardware-kit-development-kit/summary:
+  en: f9e0c3f611664d11
+  zh: 4315bd0edf37a443
+/sugarat-hardware-kit-development-kit/contents:
+  en: 00cb17b5d1279067
+  zh: f5a2f8f5818085b2
+/sugarat-hardware-kit-development-kit/give-this-kit-to-an-agent:
+  en: fbca9d63e15142f1
+  zh: e88d3c3f8080f166
+/sugarat-hardware-kit-development-kit/use-the-sources-locally:
+  en: cfda5459f859af60
+  zh: 0b6e1f06dceea8de
+/sugarat-hardware-kit-development-kit/architecture:
+  en: d1193e1a2aed440c
+  zh: 435c646c8298200c
+/sugarat-hardware-kit-development-kit/components:
+  en: c0e106c2429f08d3
+  zh: 7ecf011ae9a17669
+/sugarat-hardware-kit-development-kit/pixel-characters:
+  en: 028c13211779a022
+  zh: 18f376a32612743a
+/sugarat-hardware-kit-development-kit/ui-themes:
+  en: ba9512d55ebf2111
+  zh: 24ff671a6c3fdd4c
+/sugarat-hardware-kit-development-kit/source-plays:
+  en: ded418a7cbac155a
+  zh: 108f31b32e04525b
+/sugarat-hardware-kit-development-kit/source-plays/community-play-sources:
+  en: 870b5bd4b015bf43
+  zh: dcd4a6c8d4908c1f
+/sugarat-hardware-kit-development-kit/resources-and-verification:
+  en: b655edfc071abe82
+  zh: 31dd3b0f718a7caf
+/sugarat-hardware-kit-development-kit/publishing:
+  en: dd6c5a7d84dfad16
+  zh: 0f15d43403a75ee3
+/sugarat-hardware-kit-development-kit/dev-note:
+  en: b75c8458928b72b9
+  zh: 003ba4e17b4b5269
