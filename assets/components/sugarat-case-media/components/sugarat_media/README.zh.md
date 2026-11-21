@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-在谷仓 360 像素圆屏徽章上复用用户已验收的本地播放器、专辑封面和播放控制。通过 本资源包入口说明中的独立安装脚本 安装 `sugarat-case-media`，指定 `target=esp-idf` 和项目语言。依赖包含 Watch 控件、Pixel 及音频驱动。在 main 的 `REQUIRES` 中添加 `sugarat_media`；安装保留自定义源码和现有应用入口，不会访问设备。
+在Sugarat 360 像素圆屏徽章上复用用户已验收的本地播放器、专辑封面和播放控制。通过 本资源包入口说明中的独立安装脚本 安装 `sugarat-case-media`，指定 `target=esp-idf` 和项目语言。依赖包含 Watch 控件、Pixel 及音频驱动。在 main 的 `REQUIRES` 中添加 `sugarat_media`；安装保留自定义源码和现有应用入口，不会访问设备。
 
 ## 场景与语言
 

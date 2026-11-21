@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-在谷仓 360 像素圆屏徽章上复用完整的专注与休息计时器、倒计时、秒表或手动时钟。通过 本资源包入口说明中的独立安装脚本 安装 `sugarat-case-time`，指定 `target=esp-idf` 和项目语言；依赖会包含 `sugarat-ui-watch` 和像素角色。在应用的 CMake `REQUIRES` 中加入 `sugarat_time`。安装保留已有应用入口和定制文件，不会构建或烧录固件。
+在Sugarat 360 像素圆屏徽章上复用完整的专注与休息计时器、倒计时、秒表或手动时钟。通过 本资源包入口说明中的独立安装脚本 安装 `sugarat-case-time`，指定 `target=esp-idf` 和项目语言；依赖会包含 `sugarat-ui-watch` 和像素角色。在应用的 CMake `REQUIRES` 中加入 `sugarat_time`。安装保留已有应用入口和定制文件，不会构建或烧录固件。
 
 ## 选择案例与语言
 

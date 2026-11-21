@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-复用谷仓 360 像素圆屏徽章上的温度仪表、温湿度及电量看板、有限历史曲线或上限告警。通过 本资源包入口说明中的独立安装脚本 安装 `sugarat-case-data`，选择 `target=esp-idf` 和项目语言；依赖中包含 Watch 控件及其字体。在 main 的 `REQUIRES` 中加入 `sugarat_data`。安装会保留定制文件和应用入口，不访问或烧录设备。
+复用Sugarat 360 像素圆屏徽章上的温度仪表、温湿度及电量看板、有限历史曲线或上限告警。通过 本资源包入口说明中的独立安装脚本 安装 `sugarat-case-data`，选择 `target=esp-idf` 和项目语言；依赖中包含 Watch 控件及其字体。在 main 的 `REQUIRES` 中加入 `sugarat_data`。安装会保留定制文件和应用入口，不访问或烧录设备。
 
 ## 场景与语言
 

@@ -39,4 +39,4 @@ Logs carry only the method, host, status and body length, never the path, query,
 
 ## Known limitations
 
-The body is buffered in memory up to `max_response_bytes`; there is no streaming callback for large downloads. OAuth token refresh and request cancellation are not provided. Responses are not cached. The source is extracted from the Spotify player, whose request path was verified on an Sugarat badge with ESP-IDF 5.5.4; the component itself is verified by compilation and the backoff host test. Verify each new service's requests on the device.
+The body is buffered in memory up to `max_response_bytes`; there is no streaming callback for large downloads. OAuth token refresh and request cancellation are not provided. Responses are not cached. The source is extracted from the Spotify player, whose request path was verified on a Sugarat badge with ESP-IDF 5.5.4; the component itself is verified by compilation and the backoff host test. Verify each new service's requests on the device.

@@ -1,13 +1,13 @@
 # Sugarat 圆形徽章硬件资料
 
-此页描述 `sdgoods-esp32s3-round`、360×360 圆屏版本的文档参数。它们来自现有 Sugarat 产品记录和所附基础模板，不是当前连接设备的检测结果；不适用于其他版本或外观相似的板卡。
+此页描述 Sugarat 360×360 圆屏徽章的文档参数。它们来自现有 Sugarat 产品记录和所附基础模板，不是当前连接设备的检测结果；不适用于其他版本或外观相似的板卡。
 
 ## 原始资料
 
 - [产品参数和来源](../boards/sugarat-esp32s3-round.json)：机器可读的事实、来源和开发版本。
 - [board_pins.h](../boards/board_pins.h)：模板内原始引脚定义的独立副本。
 - [模板分区表](../boards/template-partitions.csv) 和 [默认配置](../boards/template-sdkconfig.defaults)：构建参考，不代表当前设备布局。
-- [厂商源码](https://github.com/SDGOODS/SDGOODS-ESP32S3) 与 [厂商引脚文件](https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h)：外部资料可能更新，本包以锁定资源为准。此包不包含独立 PDF 原理图或经确认的 PCB 修订号。
+- 固件来源和许可见[归属说明](../NOTICE.md)。此包不包含独立 PDF 原理图或经确认的 PCB 修订号。
 
 ## 参数速查
 

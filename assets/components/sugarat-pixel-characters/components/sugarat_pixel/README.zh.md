@@ -28,4 +28,4 @@ sp_avatar_set_mood(buddy, SP_MOOD_TALK);
 
 ## 内存与修改
 
-全部角色以 4 位索引帧存储，约占 95 KB flash；每个角色在 LVGL 堆中增加一个 LVGL 对象、一小块状态和一个定时器。绘制时把相同颜色的连续像素合并为矩形，因此 scale 4 的角色重绘很快，但一个界面上不要放太多动画角色。角色以代码形式定义在 `tools/make_chars.py` 中；增加或修改角色时编辑该文件，并在组件目录运行 `python3 tools/make_chars.py proof.png`（需要 Pillow），它会重写 `src/sp_chars.c` 和 `include/sp_chars.h` 并输出校对图。角色画为原创，采用 Apache-2.0。组件已用 ESP-IDF 5.5.4 在谷仓模板中无警告编译，帧画面已在主机 LVGL 8.3.11 构建上渲染并人工检查；组件尚未在设备上运行。
+全部角色以 4 位索引帧存储，约占 95 KB flash；每个角色在 LVGL 堆中增加一个 LVGL 对象、一小块状态和一个定时器。绘制时把相同颜色的连续像素合并为矩形，因此 scale 4 的角色重绘很快，但一个界面上不要放太多动画角色。角色以代码形式定义在 `tools/make_chars.py` 中；增加或修改角色时编辑该文件，并在组件目录运行 `python3 tools/make_chars.py proof.png`（需要 Pillow），它会重写 `src/sp_chars.c` 和 `include/sp_chars.h` 并输出校对图。角色画为原创，采用 Apache-2.0。组件已用 ESP-IDF 5.5.4 在Sugarat 模板中无警告编译，帧画面已在主机 LVGL 8.3.11 构建上渲染并人工检查；组件尚未在设备上运行。

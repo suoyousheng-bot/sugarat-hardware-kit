@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write plays/squad-talk/components/sugarat_pixel/README.md
 /sugarat-pixel-characters:
-  en: 87415c05b4de2d25
-  zh: c638874c06eb656e
+  en: 9df0dac694bdc3e9
+  zh: e62e1d0b998b11d6
 /sugarat-pixel-characters/showing-a-character:
   en: e969bab37a0caa61
   zh: 71d6b64dd5eab5f2
@@ -12,5 +12,5 @@
   en: 0a03af019c06b00c
   zh: fd0b2a2a3483147c
 /sugarat-pixel-characters/memory-and-changes:
-  en: e66492a00da65a12
-  zh: 39f85b4650167910
+  en: 16f01f2ab56769ca
+  zh: 9e4356df96714407

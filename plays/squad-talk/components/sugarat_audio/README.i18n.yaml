@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write plays/squad-talk/components/sugarat_audio/README.md
 /sugarat-audio:
-  en: 96ccf193dbf24b41
-  zh: afb417a4fa906190
+  en: 1aa8078e8d9c504d
+  zh: 1a3ba35f2c451138
 /sugarat-audio/operations:
   en: f58a5993548e49d4
   zh: 3c93e29e02b7f18e
@@ -12,5 +12,5 @@
   en: 36e67ae66483b9e8
   zh: 2fdafa1b896ccdbf
 /sugarat-audio/verification-limits:
-  en: 4caf886e0a4444a3
-  zh: a7c2c5220a6aae8b
+  en: 6efeaf0a5dde0b51
+  zh: dd54dd53eafa5fe4

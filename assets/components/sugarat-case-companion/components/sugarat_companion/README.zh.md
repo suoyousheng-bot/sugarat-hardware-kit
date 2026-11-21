@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-在谷仓 360 像素圆屏徽章上复用用户已验收的互动宠物、八表情徽章或语音状态场景。通过 本资源包入口说明中的独立安装脚本 安装 `sugarat-case-companion`，指定 `target=esp-idf` 和项目语言。依赖包含 Watch 控件和 20 个 Pixel 角色。在主应用的 `REQUIRES` 中加入 `sugarat_companion`；安装保留已有应用入口和定制文件，不访问设备。
+在Sugarat 360 像素圆屏徽章上复用用户已验收的互动宠物、八表情徽章或语音状态场景。通过 本资源包入口说明中的独立安装脚本 安装 `sugarat-case-companion`，指定 `target=esp-idf` 和项目语言。依赖包含 Watch 控件和 20 个 Pixel 角色。在主应用的 `REQUIRES` 中加入 `sugarat_companion`；安装保留已有应用入口和定制文件，不访问设备。
 
 ## 场景与语言
 

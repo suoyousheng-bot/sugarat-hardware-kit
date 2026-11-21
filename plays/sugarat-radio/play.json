@@ -26,7 +26,7 @@
     "CONFIG_SUGARAT_RADIO_DEFAULT_TIMEZONE",
     "CONFIG_SUGARAT_WIFI_MAX_TX_POWER_DBM"
   ],
-  "productId": "sdgoods-esp32s3-round",
+  "productId": "sugarat-esp32s3-round",
   "build": {
     "sdkVersion": "5.5.4",
     "projectName": "sugarat_radio",

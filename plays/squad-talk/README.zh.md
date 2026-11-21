@@ -8,7 +8,7 @@ description: "构建和使用 Squad Talk：供两台Sugarat 圆屏徽章使用�
 
 ## 概要
 
-Squad Talk 通过 ESP-NOW 直接连接两台谷仓 ESP32-S3 圆屏徽章。选择相同频道，等待 `BUDDY ONLINE`，按住 `HOLD TO TALK` 说话，松开后收听。英文奶油白与紫色界面使用大指纹按住区域、粗圆字体和随状态变化的填色。应用不需要路由器、手机、账号或服务器。[validation.json](validation.json) 分别记录固件构建、主机测试和设备验收。
+Squad Talk 通过 ESP-NOW 直接连接两台Sugarat ESP32-S3 圆屏徽章。选择相同频道，等待 `BUDDY ONLINE`，按住 `HOLD TO TALK` 说话，松开后收听。英文奶油白与紫色界面使用大指纹按住区域、粗圆字体和随状态变化的填色。应用不需要路由器、手机、账号或服务器。[validation.json](validation.json) 分别记录固件构建、主机测试和设备验收。
 
 ## 目录
 
@@ -62,7 +62,7 @@ python3 plays/squad-talk/tests/check_host.py --output /tmp/squad-talk
 <a id="hardware-and-sources"></a>
 ## 硬件与来源
 
-工程由校验通过的本地谷仓开发包 0.2.1 初始化：ESP-IDF 5.5.4、LVGL 8.3.11、360×360 ST77916、CST816 触摸、32 MiB Flash 和 8 MiB Octal PSRAM。麦克风与扬声器保留 BSP 的 I2S 接线。应用基于随包 Game 控件，采用奶油白、紫色与荧光绿配色、220×350 像素、下半部伸出屏幕的椭圆指纹区域和 Nunito Black 英文字形。文字位于实际圆形屏幕内，指针测试区分椭圆点击区域和矩形角落。[Nunito 的 OFL 许可](assets/fonts/OFL.txt)覆盖随包字体源文件和生成的子集，运行 `python3 plays/squad-talk/tools/make_ui_fonts.py` 可重新生成。[upstream.json](upstream.json) 固定已检查的 atomic14 对讲项目来源，[MIT 声明](licenses/atomic14-MIT.txt) 和基础工程声明随项目分发。双机通话协议、独立编码数据块及硬件适配由本应用维护。
+工程由校验通过的本地Sugarat 开发包 0.2.1 初始化：ESP-IDF 5.5.4、LVGL 8.3.11、360×360 ST77916、CST816 触摸、32 MiB Flash 和 8 MiB Octal PSRAM。麦克风与扬声器保留 BSP 的 I2S 接线。应用基于随包 Game 控件，采用奶油白、紫色与荧光绿配色、220×350 像素、下半部伸出屏幕的椭圆指纹区域和 Nunito Black 英文字形。文字位于实际圆形屏幕内，指针测试区分椭圆点击区域和矩形角落。[Nunito 的 OFL 许可](assets/fonts/OFL.txt)覆盖随包字体源文件和生成的子集，运行 `python3 plays/squad-talk/tools/make_ui_fonts.py` 可重新生成。[upstream.json](upstream.json) 固定已检查的 atomic14 对讲项目来源，[MIT 声明](licenses/atomic14-MIT.txt) 和基础工程声明随项目分发。双机通话协议、独立编码数据块及硬件适配由本应用维护。
 
 按开发包的[部署说明](../../../hardware-kits/sugarat-hardware-kit/references/deployment.md)操作。只有用户明确要求时才跳过完整私有备份。启动器安装、单应用烧录、写入字节校验、启动、触摸、麦克风、扬声器、半双工对话、距离和电源行为分别验收。固件编译成功或模拟对话通过不代表真实设备行为已验证。
 

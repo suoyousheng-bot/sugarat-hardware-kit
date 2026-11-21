@@ -127,7 +127,7 @@ class KitTests(unittest.TestCase):
     def test_play_lookup_and_prompt_pin_source_hardware_and_release(self):
         record = kit.select_play(kit.ROOT, "sugarat-radio")
         self.assertEqual(record["sourceDirectory"], "plays/sugarat-radio")
-        self.assertEqual(record["productId"], "sdgoods-esp32s3-round")
+        self.assertEqual(record["productId"], "sugarat-esp32s3-round")
         self.assertFalse(record["validation"]["deviceVerified"])
         output = kit.play_prompt(kit.ROOT, "sugarat-radio", "https://github.com/example/badge-kit", "v0.2.0", "Change the skin")
         for value in ("/blob/v0.2.0/AGENTS.md", "plays --id sugarat-radio", "export-play --id sugarat-radio", "Change the skin"):

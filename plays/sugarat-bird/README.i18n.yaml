@@ -3,13 +3,13 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write plays/sugarat-bird/README.md
 /:
-  en: 51605575652c6ba0
-  zh: 0aa37de4f830012c
+  en: 79035dbaf50c8a85
+  zh: e5567432561921e8
 /sugarat-pocket-bird:
-  en: e51b93167f1b2e2d
-  zh: 60b4d1554be8eb7b
+  en: 93461975b663a43d
+  zh: b0c2e9956a220b6a
 /sugarat-pocket-bird/summary:
-  en: e0bb31be2b44a064
+  en: 89cb5411a2822cd7
   zh: b0600a5e8e41c1ee
 /sugarat-pocket-bird/contents:
   en: 400d0218c1819843
@@ -18,8 +18,8 @@
   en: f95351972019b19a
   zh: 5bdb5d1182c67e06
 /sugarat-pocket-bird/build:
-  en: afa395fecc8def9d
-  zh: 3a11bc38996433cb
+  en: 10eae5885cc0c24c
+  zh: aa9e049e773db9c9
 /sugarat-pocket-bird/host-checks:
   en: 9c310eae8874f372
   zh: d6609a9dc98c8849
@@ -27,8 +27,8 @@
   en: 825524587612cc8e
   zh: c03c78bc4a30ef2a
 /sugarat-pocket-bird/launcher-and-device-scope:
-  en: 8495676f541ea332
-  zh: a18c39df90b8a0f8
+  en: 72a3d73e1d696c82
+  zh: f5084e46eae3046f
 /sugarat-pocket-bird/sources-and-customization:
-  en: cd2c378d6cedb810
-  zh: 341dd8dea45f2339
+  en: 08a37aafd6d145f8
+  zh: ac0e281a938202ee
