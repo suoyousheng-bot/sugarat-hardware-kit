@@ -1,8 +1,8 @@
-# Sugarat  IMU 运动传感器
+# Sugarat IMU 运动传感器
 
 [English](README.md) | 中文
 
-安装时选择 `sugarat-imu`、`target=esp-idf`，目录使用谷仓固件工程根目录，并在 `main/REQUIRES` 中添加 `sugarat_imu`。在 `sdgoods_touch_init()` 和 `sdgoods_hw_info_init()` 之后调用 `sugarat_imu_start(&config)`，并检查返回的错误码。组件通过触摸驱动安装的 I2C 端口探测 0x6B 地址上的 QMI8658，配置为 ±8 g 和 ±512 dps，并在独立任务中以 100 Hz 采样。组件运行期间独占传感器配置：`sdgoods_hw_gyro()` 的换算不再适用；组件每 2 秒检查一次量程，被其他代码改动时恢复配置并计入 `config_repairs`。
+安装时选择 `sugarat-imu`、`target=esp-idf`，目录使用Sugarat 固件工程根目录，并在 `main/REQUIRES` 中添加 `sugarat_imu`。在 `sdgoods_touch_init()` 和 `sdgoods_hw_info_init()` 之后调用 `sugarat_imu_start(&config)`，并检查返回的错误码。组件通过触摸驱动安装的 I2C 端口探测 0x6B 地址上的 QMI8658，配置为 ±8 g 和 ±512 dps，并在独立任务中以 100 Hz 采样。组件运行期间独占传感器配置：`sdgoods_hw_gyro()` 的换算不再适用；组件每 2 秒检查一次量程，被其他代码改动时恢复配置并计入 `config_repairs`。
 
 ```c
 sugarat_imu_config_t imu = sugarat_imu_default_config();

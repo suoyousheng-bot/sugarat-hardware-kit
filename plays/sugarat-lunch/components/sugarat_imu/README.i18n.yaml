@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write plays/sugarat-lunch/components/sugarat_imu/README.md
 /sugarat-imu:
-  en: 5f9ad49a013e1914
-  zh: e0428215b337eac5
+  en: e26d1b8cea2e8c4d
+  zh: 658cc4e94d2985e1
 /sugarat-imu/readings-and-events:
-  en: d476d202638a2015
-  zh: 907ff483130d3e17
+  en: ba2dd50244ce1bf5
+  zh: fd9072b20c43cbcb
 /sugarat-imu/shared-i2c-bus:
   en: d94b47ad39bdf80e
   zh: de0ee608a1cbbf64
 /sugarat-imu/verification-limits:
-  en: fe41d09a0fd6c393
-  zh: 0486ea4a28ebb50f
+  en: b0eec5b3e566f179
+  zh: 1648993b3b1de27e

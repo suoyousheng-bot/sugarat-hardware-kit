@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-安装时选择 `sugarat-audio`、`target=esp-idf`，目录使用谷仓固件工程根目录，并在 `main/REQUIRES` 中添加 `sugarat_audio`。在 LVGL 和触摸初始化之后，用 `sugarat_audio_init(&config)` 替换模板中的 `sdgoods_audio_init()` 调用，并检查返回的错误码。组件独占扬声器使用的 I2S0 TX、麦克风使用的 I2S1 RX，以及 GPIO 3 上的功放使能脚。ESP32-S3 只有这两个 I2S 端口，如果固件同时调用 `sdgoods_audio_init()`，会收到 I2S 驱动错误。BSP 的 `sdgoods_audio_get_volume()`、`sdgoods_audio_set_volume()` 和 `sdgoods_audio_bgm_stop()` 仍可安全调用，控制中心的音量页面照常工作；组件占用端口期间，`sdgoods_audio_bgm_start()` 以及 BSP 的录音和播放会失败。
+安装时选择 `sugarat-audio`、`target=esp-idf`，目录使用Sugarat 固件工程根目录，并在 `main/REQUIRES` 中添加 `sugarat_audio`。在 LVGL 和触摸初始化之后，用 `sugarat_audio_init(&config)` 替换模板中的 `sdgoods_audio_init()` 调用，并检查返回的错误码。组件独占扬声器使用的 I2S0 TX、麦克风使用的 I2S1 RX，以及 GPIO 3 上的功放使能脚。ESP32-S3 只有这两个 I2S 端口，如果固件同时调用 `sdgoods_audio_init()`，会收到 I2S 驱动错误。BSP 的 `sdgoods_audio_get_volume()`、`sdgoods_audio_set_volume()` 和 `sdgoods_audio_bgm_stop()` 仍可安全调用，控制中心的音量页面照常工作；组件占用端口期间，`sdgoods_audio_bgm_start()` 以及 BSP 的录音和播放会失败。
 
 ```c
 sugarat_audio_config_t audio = sugarat_audio_default_config();

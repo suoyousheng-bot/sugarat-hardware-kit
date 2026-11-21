@@ -1,5 +1,5 @@
 ---
-description: "Play tilt-controlled racing and marble time trials on an Sugarat round badge."
+description: "Play tilt-controlled racing and marble time trials on a Sugarat round badge."
 ---
 
 # Sugarat Round Race

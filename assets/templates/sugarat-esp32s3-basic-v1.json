@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "id": "sdgoods-esp32s3-basic-v1",
+  "id": "sugarat-esp32s3-basic-v1",
   "version": 1,
-  "productId": "sdgoods-esp32s3-round",
-  "source": "https://github.com/SDGOODS/SDGOODS-ESP32S3",
+  "productId": "sugarat-esp32s3-round",
+  "source": "https://github.com/suoyousheng-bot/sugarat-hardware-kit",
   "lvgl": "8.3.11",
   "idf": "5.5.4",
-  "archiveBytes": 3851515,
-  "archiveSha256": "380586da2da9264bcc6d2321017843c3e39f46f150ad2d2557c11d3057e222d6",
-  "unpackedBytes": 16227400,
+  "archiveBytes": 3851519,
+  "archiveSha256": "278c5c47564da77d1298f41061f01ef2a26c42b433113a68092887f5b2c7707f",
+  "unpackedBytes": 16227384,
   "files": [
     {
       "path": ".gitignore",
@@ -37,8 +37,8 @@
     },
     {
       "path": "SUGARAT_TEMPLATE.md",
-      "bytes": 2612,
-      "sha256": "9b7eaa41ea43656b363dfcc8b12a06ef9f245985eb99b277d544546e214a4127"
+      "bytes": 2596,
+      "sha256": "b3f6fec9a19ee27ea010117810deb1cf293e3a1497c4bf429d503eca7dd955c4"
     },
     {
       "path": "TRADEMARK.md",

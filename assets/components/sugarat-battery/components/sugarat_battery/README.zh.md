@@ -1,8 +1,8 @@
-# 谷仓电池监测
+# Sugarat 电池监测
 
 [English](README.md) | 中文
 
-安装时选择 `sugarat-battery`、`target=esp-idf`，目录使用谷仓固件工程根目录，并在 `main/REQUIRES` 中添加 `sugarat_battery`。在 `sdgoods_hw_info_init()` 之后调用 `sugarat_battery_start(&config)`，并检查返回的错误码。ADC1 由 BSP 管理，组件在独立任务中通过 `sdgoods_hw_bat_v()` 读取电压，不创建 ADC 实例。
+安装时选择 `sugarat-battery`、`target=esp-idf`，目录使用Sugarat 固件工程根目录，并在 `main/REQUIRES` 中添加 `sugarat_battery`。在 `sdgoods_hw_info_init()` 之后调用 `sugarat_battery_start(&config)`，并检查返回的错误码。ADC1 由 BSP 管理，组件在独立任务中通过 `sdgoods_hw_bat_v()` 读取电压，不创建 ADC 实例。
 
 ```c
 sugarat_battery_config_t battery = sugarat_battery_default_config();

@@ -22,4 +22,4 @@ Touch and the IMU share I2C port 1. Reads use a 90 ms timeout. After a read slow
 
 ## Verification limits
 
-Hardware acceptance on an Sugarat round badge with ESP-IDF 5.5.4 covered 100 Hz sampling, tilt direction, face-up, face-down and upright orientation, shake, flip, pickup and step counting. Thresholds suit a handheld or worn badge; adjust them for other uses. Step counts are estimates. The component installs no UI and does not change BSP pins, partitions or the application entry point.
+Hardware acceptance on a Sugarat round badge with ESP-IDF 5.5.4 covered 100 Hz sampling, tilt direction, face-up, face-down and upright orientation, shake, flip, pickup and step counting. Thresholds suit a handheld or worn badge; adjust them for other uses. Step counts are estimates. The component installs no UI and does not change BSP pins, partitions or the application entry point.

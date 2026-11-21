@@ -18,4 +18,4 @@ Every `sample_period_ms` (default 1000) the component takes the median of five r
 
 ## Accuracy
 
-The percentage is an estimate. Load from the backlight or speaker lowers the voltage and charging raises it. The board exposes no documented charge-status pin, and a charger without USB data is not reported as connected. Supply a curve measured for the installed cell when accuracy matters. Reads that return no value count as `failed_reads` and are skipped; the level stays UNAVAILABLE until the first valid reading. Hardware acceptance on an Sugarat round badge covered voltage, percentage, level, trend and USB host detection.
+The percentage is an estimate. Load from the backlight or speaker lowers the voltage and charging raises it. The board exposes no documented charge-status pin, and a charger without USB data is not reported as connected. Supply a curve measured for the installed cell when accuracy matters. Reads that return no value count as `failed_reads` and are skipped; the level stays UNAVAILABLE until the first valid reading. Hardware acceptance on a Sugarat round badge covered voltage, percentage, level, trend and USB host detection.

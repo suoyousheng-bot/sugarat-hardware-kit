@@ -65,6 +65,6 @@ python3 plays/sugarat-bird/tests/check_host.py --output /tmp/sugarat-bird-host
 <a id="sources-and-customization"></a>
 ## 源码与定制
 
-飞行和水管规则来自Apache-2.0许可的 [SDGOODS Flappy示例](https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/main/apps/ui_flappy.c)，[upstream.json](upstream.json)固定所检查的源码。资源包模板清单固定BSP基础。Deotaland维护独立的按时间推进模型、英文圆屏界面、像素小鸟、最高分存储和主机检查。分发应用时保留基础工程许可与声明。
+飞行和水管规则来自Apache-2.0许可的 [Sugarat Flappy示例](https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/main/apps/ui_flappy.c)，[upstream.json](upstream.json)固定所检查的源码。资源包模板清单固定BSP基础。Deotaland维护独立的按时间推进模型、英文圆屏界面、像素小鸟、最高分存储和主机检查。分发应用时保留基础工程许可与声明。
 
 飞行与难度参数位于 `main/bird/bird_model.c`，布局和精灵位于 `main/bird/bird_view.c`，生命周期接入位于 `main/apps/ui_helloapp.c`。界面复用随附Game配色、字体、按钮和边框组件。应用文案为英文，BSP同样固定英文，无需远端服务或单独的资源镜像。

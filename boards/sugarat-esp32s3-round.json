@@ -1,87 +1,87 @@
 {
   "schemaVersion": 1,
-  "name": "SDGOODS ESP32-S3 Round Badge",
+  "name": "Sugarat ESP32-S3 Round Badge",
   "revision": "360x360",
   "kind": "board",
   "chip": "esp32s3",
   "aliases": [
-    "SDGOODS-ESP32S3",
-    "谷仓圆屏徽章"
+    "Sugarat Round Badge",
+    "Sugarat 圆屏徽章"
   ],
   "sources": [
-    "https://github.com/SDGOODS/SDGOODS-ESP32S3",
-    "https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h"
+    "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/references/hardware.md",
+    "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/boards/board_pins.h"
   ],
   "facts": [
     {
       "key": "chip",
       "value": "esp32s3",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/references/hardware.md"
     },
     {
       "key": "flashSizeBytes",
       "value": "33554432",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/references/hardware.md"
     },
     {
       "key": "psramBytes",
       "value": "8388608",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/references/hardware.md"
     },
     {
       "key": "display.controller",
       "value": "ST77916",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/boards/board_pins.h"
     },
     {
       "key": "display.width",
       "value": "360",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/references/hardware.md"
     },
     {
       "key": "display.height",
       "value": "360",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/references/hardware.md"
     },
     {
       "key": "display.bus",
       "value": "spi",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/boards/board_pins.h"
     },
     {
       "key": "display.pins",
       "value": "{\"te\":18,\"sck\":40,\"mosi\":46,\"data0\":46,\"data1\":45,\"data2\":42,\"data3\":41,\"cs\":21,\"dc\":null,\"reset\":9,\"busy\":null,\"power\":12,\"backlight\":13}",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/boards/board_pins.h"
     },
     {
       "key": "touch.present",
       "value": "true",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/references/hardware.md"
     },
     {
       "key": "touch.controller",
       "value": "CST816",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/references/hardware.md"
     },
     {
       "key": "touch.pins",
       "value": "{\"scl\":10,\"sda\":11,\"int\":4,\"reset\":5}",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/boards/board_pins.h"
     },
     {
       "key": "buttons.count",
       "value": "1",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/boards/board_pins.h"
     },
     {
       "key": "buttons.interface",
       "value": "gpio",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/boards/board_pins.h"
     },
     {
       "key": "buttons.pins",
       "value": "[6]",
-      "reference": "https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/components/sdgoods_board/include/board_pins.h"
+      "reference": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/main/boards/board_pins.h"
     }
   ],
   "notes": [
@@ -91,7 +91,7 @@
     "Battery ADC1 channel 7 is distinct from GPIO7. Preserve GPIO6 sleep and GPIO7 power-latch behavior.",
     "Application data must survive app replacement. Do not enable format-on-mount-failure or erase flash without explicit acceptance."
   ],
-  "productId": "sdgoods-esp32s3-round",
+  "productId": "sugarat-esp32s3-round",
   "status": "documented-reference-not-device-inspection",
   "development": {
     "espIdf": "5.5.4",

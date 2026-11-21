@@ -1,8 +1,8 @@
-# 谷仓 Wi-Fi 配网界面
+# Sugarat Wi-Fi 配网界面
 
 [English](README.md) | 中文
 
-安装时选择 `sugarat-wifi-ui`、`target=esp-idf`，目录使用谷仓固件工程根目录，其依赖会安装网络组件。在 `main/REQUIRES` 中添加 `sugarat_wifi_ui`，先初始化 BSP/LVGL 和网络管理实例，再于 LVGL 线程调用 `sugarat_wifi_ui_create(wifi)` 与 `lv_scr_load(screen)`，并检查错误码和返回指针。销毁网络前先删除屏幕，屏幕删除会移除界面定时器并释放状态。
+安装时选择 `sugarat-wifi-ui`、`target=esp-idf`，目录使用Sugarat 固件工程根目录，其依赖会安装网络组件。在 `main/REQUIRES` 中添加 `sugarat_wifi_ui`，先初始化 BSP/LVGL 和网络管理实例，再于 LVGL 线程调用 `sugarat_wifi_ui_create(wifi)` 与 `lv_scr_load(screen)`，并检查错误码和返回指针。销毁网络前先删除屏幕，屏幕删除会移除界面定时器并释放状态。
 
 ## 成功回调与应用页面
 

@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-在谷仓固件工程根目录以 `target=esp-idf` 安装 `sugarat-frame-stream`，并把 `sugarat_frame` 加入 `main/REQUIRES`。组件把持续变化的屏幕区域从内部 RAM 直接推给屏幕，由两个核渲染，帧率均匀。它依赖谷仓模板 BSP 中的推屏完成切换和 `sdgoods_lvgl_fast_loop()`；缺少这两项时每条带额外等待约 1.5 ms。在徽章上，整屏 360x360 双线性旋转稳定为 30 fps（每帧 24 ms，最长 30 ms）；圆盘越小，耗时按比例越少。
+在Sugarat 固件工程根目录以 `target=esp-idf` 安装 `sugarat-frame-stream`，并把 `sugarat_frame` 加入 `main/REQUIRES`。组件把持续变化的屏幕区域从内部 RAM 直接推给屏幕，由两个核渲染，帧率均匀。它依赖Sugarat 模板 BSP 中的推屏完成切换和 `sdgoods_lvgl_fast_loop()`；缺少这两项时每条带额外等待约 1.5 ms。在徽章上，整屏 360x360 双线性旋转稳定为 30 fps（每帧 24 ms，最长 30 ms）；圆盘越小，耗时按比例越少。
 
 ```c
 static sugarat_frame_stream_t *stream;

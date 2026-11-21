@@ -3,13 +3,13 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write plays/sugarat-race/README.md
 /:
-  en: f1bee31c77b41add
-  zh: 49dbd297b7b443fc
+  en: 13dfc8457bf7b873
+  zh: da6b8f7294d6040b
 /sugarat-round-race:
-  en: 0308c358afbaaf90
-  zh: f737a056c93de4be
+  en: 810d178088884cc6
+  zh: 3ab5aafa143b25d4
 /sugarat-round-race/summary:
-  en: bd81ecde30bbd7f6
+  en: c983d58b7efc7fc2
   zh: 505ae9754221f90e
 /sugarat-round-race/contents:
   en: f0c3a0a0271d117e
@@ -18,11 +18,11 @@
   en: b84c648be0ce1d25
   zh: ddd1cd080e3e046c
 /sugarat-round-race/build-and-check:
-  en: 32ea86532baf8218
-  zh: f23a9355b877cdf3
+  en: 88e7849e88762e85
+  zh: bc5142118d2bbeb9
 /sugarat-round-race/maps-and-rendering:
   en: ba3e442d5dcba058
   zh: 1bf749c37a29e93b
 /sugarat-round-race/device-installation:
-  en: f70227736bf360cb
-  zh: fcfed863b6fa69c6
+  en: 385aa097a52241f5
+  zh: a8e16b7aa024d42f

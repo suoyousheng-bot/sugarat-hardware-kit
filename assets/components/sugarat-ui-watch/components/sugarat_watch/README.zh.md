@@ -1,4 +1,4 @@
-# Sugarat  Watch 风格界面组件
+# Sugarat Watch 风格界面组件
 
 [English](README.md) | 中文
 
@@ -64,4 +64,4 @@ lv_scr_load(screen);
 
 ## 许可与验证
 
-代码采用 Apache-2.0。字体子集遵循 `OFL.txt`；Font Awesome 图标设计同时遵循 `FONT-AWESOME-LICENSE.txt`（CC BY 4.0）。组件和示例界面已用 ESP-IDF 5.5.4 在谷仓模板中无警告编译。所有示例界面已在使用 32 KB 堆的主机 LVGL 8.3.11 构建上渲染并人工检查画面；组件尚未在设备上运行。每个新应用都须在设备上验证点击区域、滚动流畅度、字符覆盖和内存。
+代码采用 Apache-2.0。字体子集遵循 `OFL.txt`；Font Awesome 图标设计同时遵循 `FONT-AWESOME-LICENSE.txt`（CC BY 4.0）。组件和示例界面已用 ESP-IDF 5.5.4 在Sugarat 模板中无警告编译。所有示例界面已在使用 32 KB 堆的主机 LVGL 8.3.11 构建上渲染并人工检查画面；组件尚未在设备上运行。每个新应用都须在设备上验证点击区域、滚动流畅度、字符覆盖和内存。

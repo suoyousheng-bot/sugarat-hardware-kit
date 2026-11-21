@@ -4,7 +4,7 @@
   "version": "0.1.4",
   "stage": 1,
   "target": "esp32s3",
-  "productId": "sdgoods-esp32s3-round",
+  "productId": "sugarat-esp32s3-round",
   "entry": "main/main.c",
   "playGuide": "PLAY.md",
   "license": "Apache-2.0",
