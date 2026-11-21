@@ -8,7 +8,7 @@ description: "为 ESP32-S3 圆屏徽章构建和二开面向美国的 Sugarat �
 
 ## 概述
 
-Sugarat 电台基于 Apache-2.0 的 [sdgoods-radio](https://github.com/YeatsLiao/sdgoods-radio)，适配资料中定义的 ESP32-S3 360×360 徽章。保留 13 套皮肤和 MP3/AAC 播放，默认英文、手动选择美国地区，并复用 Sugarat 配网组件。行为和可改参数见 [PLAY.md](PLAY.md)，本次验证等级见 [VALIDATION.md](VALIDATION.md)。
+Sugarat 电台将采用 Apache-2.0 许可的上游应用移植到 360×360 ESP32-S3 圆屏徽章。原始项目与版本见 [upstream.json](upstream.json)。它保留 13 套皮肤和 MP3/AAC 播放，默认英文、手动选择美国地区，并复用 Sugarat 配网组件。行为和可改参数见 [PLAY.md](PLAY.md)，本次验证等级见 [VALIDATION.md](VALIDATION.md)。
 
 ## 目录
 

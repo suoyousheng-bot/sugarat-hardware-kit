@@ -8,7 +8,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Sugarat Radio adapts the Apache-2.0 [sdgoods-radio](https://github.com/YeatsLiao/sdgoods-radio) application for the documented ESP32-S3 360×360 badge. It keeps 13 skins and MP3/AAC streaming, uses English defaults, selects US markets explicitly, and reuses Sugarat Wi-Fi setup. See [PLAY.md](PLAY.md) for behavior and configurable parameters, and [VALIDATION.md](VALIDATION.md) for the verified delivery level.
+Sugarat Radio adapts the Apache-2.0 upstream radio application listed in [upstream.json](upstream.json) for the documented ESP32-S3 360×360 badge. It keeps 13 skins and MP3/AAC streaming, uses English defaults, selects US markets explicitly, and reuses Sugarat Wi-Fi setup. See [PLAY.md](PLAY.md) for behavior and configurable parameters, and [VALIDATION.md](VALIDATION.md) for the verified delivery level.
 
 ## Contents
 
