@@ -46,7 +46,7 @@ Give your preferred Agent this kit's GitHub entry link to develop firmware for t
 <a id="give-this-kit-to-an-agent"></a>
 ## Give this kit to an Agent
 
-Copy [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) into your preferred Agent, then describe the application you want. The sentence points to the fixed [v0.3.5 Agent entry](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.5/AGENTS.md); the complete [v0.3.5 source ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.5.zip) contains the matching kit. The receiving Agent reads [AGENTS.md](AGENTS.md) and [SKILL.md](SKILL.md), then downloads that version. A supported Skill installer must retain the whole directory, including assets and scripts.
+Copy [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) into your preferred Agent, then describe the application you want. The sentence points to the fixed [v0.3.6 Agent entry](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.6/AGENTS.md); the complete [v0.3.6 source ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.6.zip) contains the matching kit. The receiving Agent reads [AGENTS.md](AGENTS.md) and [SKILL.md](SKILL.md), then downloads that version. A supported Skill installer must retain the whole directory, including assets and scripts.
 
 Generate the sentence for an actual publication destination with `python3 scripts/kit.py prompt --repo <repository-url> --ref <release-tag-or-commit> --task <application-request>`. This command formats text; it does not publish or check repository access. The output can be copied by a product clipboard action.
 
@@ -195,7 +195,7 @@ A source play is a complete application you can copy and modify. Sugarat Radio i
 | Startup observed | Passed |
 | Full device acceptance | Not yet recorded |
 
-Run `python3 scripts/kit.py plays --id sugarat-radio` to locate the complete radio application. [plays.json](plays.json) binds its stable ID, version and hardware to the source directory. After verification, read the play guide, build README and validation report there, then copy the complete directory into a new project before modifying it. Generate a fixed-version handoff with `python3 scripts/kit.py play-prompt --id sugarat-radio --repo https://github.com/suoyousheng-bot/sugarat-hardware-kit --ref v0.3.5 --task "Customize the radio"`. The kit contains source, not a firmware download; inspect actual partitions before any device write.
+Run `python3 scripts/kit.py plays --id sugarat-radio` to locate the complete radio application. [plays.json](plays.json) binds its stable ID, version and hardware to the source directory. After verification, read the play guide, build README and validation report there, then copy the complete directory into a new project before modifying it. Generate a fixed-version handoff with `python3 scripts/kit.py play-prompt --id sugarat-radio --repo https://github.com/suoyousheng-bot/sugarat-hardware-kit --ref v0.3.6 --task "Customize the radio"`. The kit contains source, not a firmware download; inspect actual partitions before any device write.
 
 ### Community play sources
 
@@ -205,19 +205,19 @@ In this repository each component is stored once. Plays reference shared copies 
 
 | ID | Community play | Source version | Community version | Attachment |
 | --- | --- | --- | --- | --- |
-| `lz-3d` | lz Real-Time 3D Character | 1.0.0 | 1.0.0 | [lz-3d.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/lz-3d.tar.gz) |
-| `pomodoro-alarm` | Pomodoro Alarm | 1.1.0 | 1.1.0 | [pomodoro-alarm.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/pomodoro-alarm.tar.gz) |
-| `squad-talk` | Squad Talk | 0.1.3 | 0.1.3 | [squad-talk.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/squad-talk.tar.gz) |
-| `sugarat-beat` | Sugarat Beat | 0.1.3 | 0.1.3 | [sugarat-beat.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-beat.tar.gz) |
-| `sugarat-bird` | Pocket Bird | 0.1.0 | 0.1.0 | [sugarat-bird.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-bird.tar.gz) |
-| `sugarat-card` | Sugarat Social Card | 0.1.2 | 0.1.2 | [sugarat-card.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-card.tar.gz) |
-| `sugarat-cover` | Sugarat Cover | 0.1.4 | 0.1.4 | [sugarat-cover.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-cover.tar.gz) |
-| `sugarat-fluid` | Magic Bottle | 0.2.1 | 0.2.1 | [sugarat-fluid.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-fluid.tar.gz) |
-| `sugarat-lunch` | Lunch Shuffle | 0.1.6 | 0.1.6 | [sugarat-lunch.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-lunch.tar.gz) |
-| `sugarat-pet` | Pocket Companion | 0.2.2 | 0.1.0 | [sugarat-pet.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-pet.tar.gz) |
-| `sugarat-race` | Round Race | 1.0.0 | 0.2.1 | [sugarat-race.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-race.tar.gz) |
-| `sugarat-radio` | Sugarat Radio · New Flow Integration Test | 0.1.1 | 0.1.1 | [sugarat-radio.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-radio.tar.gz) |
-| `sugarat-recorder` | Sugarat Voice Recorder | 0.1.4 | 0.1.4 | [sugarat-recorder.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-recorder.tar.gz) |
+| `lz-3d` | lz Real-Time 3D Character | 1.0.0 | 1.0.0 | [lz-3d.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/lz-3d.tar.gz) |
+| `pomodoro-alarm` | Pomodoro Alarm | 1.1.0 | 1.1.0 | [pomodoro-alarm.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/pomodoro-alarm.tar.gz) |
+| `squad-talk` | Squad Talk | 0.1.3 | 0.1.3 | [squad-talk.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/squad-talk.tar.gz) |
+| `sugarat-beat` | Sugarat Beat | 0.1.3 | 0.1.3 | [sugarat-beat.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-beat.tar.gz) |
+| `sugarat-bird` | Pocket Bird | 0.1.0 | 0.1.0 | [sugarat-bird.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-bird.tar.gz) |
+| `sugarat-card` | Sugarat Social Card | 0.1.2 | 0.1.2 | [sugarat-card.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-card.tar.gz) |
+| `sugarat-cover` | Sugarat Cover | 0.1.4 | 0.1.4 | [sugarat-cover.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-cover.tar.gz) |
+| `sugarat-fluid` | Magic Bottle | 0.2.1 | 0.2.1 | [sugarat-fluid.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-fluid.tar.gz) |
+| `sugarat-lunch` | Lunch Shuffle | 0.1.6 | 0.1.6 | [sugarat-lunch.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-lunch.tar.gz) |
+| `sugarat-pet` | Pocket Companion | 0.2.2 | 0.1.0 | [sugarat-pet.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-pet.tar.gz) |
+| `sugarat-race` | Round Race | 1.0.0 | 0.2.1 | [sugarat-race.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-race.tar.gz) |
+| `sugarat-radio` | Sugarat Radio · New Flow Integration Test | 0.1.1 | 0.1.1 | [sugarat-radio.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-radio.tar.gz) |
+| `sugarat-recorder` | Sugarat Voice Recorder | 0.1.4 | 0.1.4 | [sugarat-recorder.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.6/sugarat-recorder.tar.gz) |
 
 The Pocket Companion and Round Race sources are newer than their community images; the other sources match the published versions.
 
@@ -235,7 +235,7 @@ Compilation, written-byte verification, startup and physical acceptance are sepa
 <a id="publishing"></a>
 ## Publishing
 
-The current kit and per-play source attachments are available in [Sugarat Hardware Kit v0.3.5](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.5). To publish a fork, follow the [publishing guide](references/publishing.md).
+The current kit and per-play source attachments are available in [Sugarat Hardware Kit v0.3.6](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.6). To publish a fork, follow the [publishing guide](references/publishing.md).
 
 ## Dev Note
 

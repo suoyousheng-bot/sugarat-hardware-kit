@@ -59,6 +59,6 @@ No serial inspection, flashing or physical device test is part of this developme
 
 ## Sources and customization
 
-The flight and pipe rules derive from the Apache-2.0 [Sugarat Flappy example](https://github.com/SDGOODS/SDGOODS-ESP32S3/blob/main/main/apps/ui_flappy.c); [upstream.json](upstream.json) pins the inspected source. The local kit's template manifest pins the BSP foundation. Deotaland maintains the isolated time-based model, English round-screen presentation, pixel bird, highest-score storage and host checks. Retain the foundation's license and notices when distributing the application.
+The flight and pipe rules derive from the Apache-2.0 upstream Flappy example pinned in [upstream.json](upstream.json). The local kit's template manifest pins the BSP foundation. Deotaland maintains the isolated time-based model, English round-screen presentation, pixel bird, highest-score storage and host checks. Retain the foundation's license and notices when distributing the application.
 
 Tune flight and difficulty in `main/bird/bird_model.c`, layout and sprites in `main/bird/bird_view.c`, and lifecycle integration in `main/apps/ui_helloapp.c`. The view uses the bundled Game palette, fonts, buttons and frame components. Application text is English; the BSP is fixed to English as well. No remote backend or separate resource image is needed.
