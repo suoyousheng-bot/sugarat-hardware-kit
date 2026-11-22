@@ -49,6 +49,12 @@
       "sourceDirectory": "plays/sugarat-fluid",
       "manifest": "plays/sugarat-fluid/play.json"
     },
+    "sugarat-hamster": {
+      "version": "1.0.0",
+      "productId": "sugarat-esp32s3-round",
+      "sourceDirectory": "plays/sugarat-hamster",
+      "manifest": "plays/sugarat-hamster/play.json"
+    },
     "sugarat-lunch": {
       "version": "0.1.6",
       "productId": "sugarat-esp32s3-round",
