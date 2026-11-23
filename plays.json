@@ -84,6 +84,12 @@
       "productId": "sugarat-esp32s3-round",
       "sourceDirectory": "plays/sugarat-recorder",
       "manifest": "plays/sugarat-recorder/play.json"
+    },
+    "sugarat-wolf": {
+      "version": "1.1.0",
+      "productId": "sugarat-esp32s3-round",
+      "sourceDirectory": "plays/sugarat-wolf",
+      "manifest": "plays/sugarat-wolf/play.json"
     }
   }
 }

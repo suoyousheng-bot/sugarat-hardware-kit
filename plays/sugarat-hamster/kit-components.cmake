@@ -4,4 +4,5 @@ list(APPEND EXTRA_COMPONENT_DIRS
     "${CMAKE_CURRENT_LIST_DIR}/../../shared/components/jpegenc"
     "${CMAKE_CURRENT_LIST_DIR}/../../shared/components/lvgl"
     "${CMAKE_CURRENT_LIST_DIR}/../../shared/components/sdgoods_launcher"
-    "${CMAKE_CURRENT_LIST_DIR}/../../assets/components/sugarat-audio/components/sugarat_audio")
+    "${CMAKE_CURRENT_LIST_DIR}/../../assets/components/sugarat-audio/components/sugarat_audio"
+    "${CMAKE_CURRENT_LIST_DIR}/../../shared/components/sugarat_imu")

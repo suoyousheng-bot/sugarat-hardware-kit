@@ -31,6 +31,7 @@
     "jpegenc": "shared/components/jpegenc",
     "lvgl": "shared/components/lvgl",
     "sdgoods_launcher": "shared/components/sdgoods_launcher",
-    "sugarat_audio": "assets/components/sugarat-audio/components/sugarat_audio"
+    "sugarat_audio": "assets/components/sugarat-audio/components/sugarat_audio",
+    "sugarat_imu": "shared/components/sugarat_imu"
   }
 }

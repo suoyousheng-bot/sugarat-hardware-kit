@@ -219,6 +219,7 @@ Sugarat 玩法社区中提供「做同款」的官方玩法，完整源码都在
 | `sugarat-race` | Round Race | 1.0.0 | 0.2.1 | [sugarat-race.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-race.tar.gz) |
 | `sugarat-radio` | Sugarat Radio · New Flow Integration Test | 0.1.1 | 0.1.1 | [sugarat-radio.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-radio.tar.gz) |
 | `sugarat-recorder` | Sugarat Voice Recorder | 0.1.4 | 0.1.4 | [sugarat-recorder.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-recorder.tar.gz) |
+| `sugarat-wolf` | Wolf Companion | 1.1.0 | 1.1.0 | [sugarat-wolf.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.7/sugarat-wolf.tar.gz) |
 
 Pocket Companion 和 Round Race 的源码比社区镜像更新，其余源码与已发布版本一致。
 
