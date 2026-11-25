@@ -1,0 +1,38 @@
+{
+  "id": "sugarat-armor",
+  "name": "Armor Fly",
+  "version": "0.1.8",
+  "stage": 1,
+  "target": "esp32s3",
+  "productId": "sugarat-esp32s3-round",
+  "entry": "main/main.c",
+  "playGuide": "PLAY.md",
+  "license": "Apache-2.0",
+  "defaultLanguage": "en",
+  "validation": {
+    "report": "VALIDATION.md"
+  },
+  "build": {
+    "sdkVersion": "5.5.4",
+    "projectName": "sugarat_armor",
+    "command": "idf.py -C plays/sugarat-armor -B /tmp/sugarat-armor-build build",
+    "partitionTable": "platform/partitions.csv",
+    "minimumFlashBytes": 33554432
+  },
+  "community": {
+    "playId": 49,
+    "productKey": "sugarat_armor",
+    "title": "Armor Fly",
+    "publishedVersion": "0.1.8",
+    "sourceUrl": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/tree/v0.3.8/plays/sugarat-armor",
+    "attachmentUrl": "https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.8/sugarat-armor.tar.gz"
+  },
+  "sharedComponents": {
+    "jpegenc": "shared/components/jpegenc",
+    "lvgl": "shared/components/lvgl",
+    "sdgoods_board": "shared/components/sdgoods_board",
+    "sdgoods_launcher": "shared/components/sdgoods_launcher",
+    "sugarat_imu": "assets/components/sugarat-imu/components/sugarat_imu",
+    "sugarat_pixel": "assets/components/sugarat-pixel-characters/components/sugarat_pixel"
+  }
+}
