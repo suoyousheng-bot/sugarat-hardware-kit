@@ -2,8 +2,8 @@
 
 Fly a pixel-art powered suit using your Sugarat badge as a motion controller.
 
-Community play: Sugarat 玩法社区 #49 (`sugarat_armor`), published version 0.1.8.
-Source version in this directory: 0.1.8.
+Community play: Sugarat 玩法社区 #49 (`sugarat_armor`), published version 0.1.12.
+Source version in this directory: 0.1.12.
 
 ## About the play
 
@@ -15,7 +15,7 @@ Motion control requires a Sugarat ESP32-S3 badge with a 360 × 360 round display
 
 ## Make your own (做同款)
 
-1. Download the attachment `sugarat-armor.tar.gz` of release `v0.3.8`: https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.8/sugarat-armor.tar.gz. It is this folder plus every shared component it uses, including LVGL; nothing else needs to be downloaded. From a repository checkout, `python3 scripts/kit.py export-play --id sugarat-armor --directory <new-folder>` writes the same project.
+1. Download the attachment `sugarat-armor.tar.gz` of release `v0.3.9`: https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.9/sugarat-armor.tar.gz. It is this folder plus every shared component it uses, including LVGL; nothing else needs to be downloaded. From a repository checkout, `python3 scripts/kit.py export-play --id sugarat-armor --directory <new-folder>` writes the same project.
 2. Make the requested changes in that standalone project. Keep the components, partition table and license files; do not start from the basic template instead.
 3. Raise the version in `version.txt` (and `PROJECT_VER` when CMakeLists.txt sets it).
 4. Build with ESP-IDF 5.5.4 for `esp32s3`. The application image is `build/sugarat_armor.bin`; it is the only file to install.

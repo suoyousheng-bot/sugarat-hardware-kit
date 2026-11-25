@@ -6,6 +6,7 @@
 
 #include "armor_ble.h"
 #include "esp_log.h"
+#include "esp_heap_caps.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -15,7 +16,7 @@
 
 enum {
     CONTROL_PERIOD_MS = 20,
-    SCREEN_PERIOD_MS = 33,
+    SCREEN_PERIOD_MS = 100,
     SAMPLE_TIMEOUT_MS = 220,
     PANEL_TOP = 186,
     PANEL_HIDDEN = 360,
@@ -28,11 +29,6 @@ static lv_obj_t *s_shade;
 static lv_obj_t *s_sheet;
 static lv_obj_t *s_sheet_status;
 static bool s_sheet_open;
-static lv_obj_t *s_core;
-static lv_obj_t *s_glow;
-static lv_obj_t *s_segments[3];
-static uint16_t s_phase;
-static uint8_t s_spin_tick;
 static void close_sheet(bool animate);
 /* Written by the UI and read by the control task, or the reverse. */
 static volatile bool s_paused;
@@ -150,26 +146,6 @@ static bool read_pose(void)
     return true;
 }
 
-static void update_reactor(bool ready, bool boost)
-{
-    if (s_paused || !s_last_subscribed) return;
-    s_spin_tick = (s_spin_tick + 1) % 2;
-    if (s_spin_tick && !boost) return;
-
-    s_phase = (s_phase + (boost ? 6 : ready ? 3 : 2)) % 360;
-    const lv_color_t beam = lv_color_hex(boost ? 0xe8ffff : ready ? 0x67eaff : 0x4181af);
-    const lv_opa_t glow = (lv_opa_t)(125 + 55 * lv_trigo_sin(s_phase) / LV_TRIGO_SIN_MAX);
-    lv_obj_set_style_bg_color(s_core, beam, 0);
-    lv_obj_set_style_outline_color(s_core, beam, 0);
-    lv_obj_set_style_outline_opa(s_core, glow, 0);
-    lv_obj_set_style_border_color(s_glow, beam, 0);
-    lv_obj_set_style_border_opa(s_glow, glow, 0);
-    for (int segment = 0; segment < 3; ++segment) {
-        lv_obj_set_style_arc_color(s_segments[segment], beam, LV_PART_INDICATOR);
-        lv_arc_set_rotation(s_segments[segment], (s_phase + segment * 120) % 360);
-    }
-}
-
 static void center_pose(void)
 {
     s_center_bank = s_bank_right;
@@ -193,7 +169,13 @@ static void control_task(void *arg)
             s_boost = false;
         }
         s_pose_ready = s_sensor_started && read_pose();
-        const bool ready = subscribed && s_pose_ready && !s_paused;
+        /* A system overlay pauses the screen only: palms brushing the edge open it while the badge
+         * is held, and flight must not stop for that. */
+        const bool ready = subscribed && s_pose_ready;
+        if (subscribed && ready != s_ready) {
+            ESP_LOGI(TAG, "ARMOR %s (pose %s, overlay %s)", ready ? "flying" : "not ready",
+                s_pose_ready ? "ok" : "stale", s_paused ? "open" : "closed");
+        }
         const float turn = ready ? shape_axis(wrap180(s_bank_right - s_center_bank), FULL_BANK_DEG) : 0;
         const float climb = ready ? shape_axis(wrap180(s_nose_up - s_center_nose), FULL_NOSE_DEG) : 0;
         armor_ble_send(ready, s_boost, turn, climb, s_view_count);
@@ -214,7 +196,6 @@ static void update_screen(lv_timer_t *timer)
         if (subscribed) lv_obj_add_flag(s_wait, LV_OBJ_FLAG_HIDDEN);
         else lv_obj_clear_flag(s_wait, LV_OBJ_FLAG_HIDDEN);
     }
-    update_reactor(s_ready, s_ready && s_boost);
 
     if (s_sheet_open) {
         const char *status = !s_pose_ready ? "Motion sensor not responding"
@@ -231,7 +212,7 @@ static void on_center(lv_event_t *event)
 
 static void on_view(lv_event_t *event)
 {
-    if (s_pose_ready && armor_ble_subscribed() && !s_paused) s_view_count++;
+    if (s_pose_ready && armor_ble_subscribed()) s_view_count++;
 }
 
 static void on_boost(lv_event_t *event)
@@ -243,11 +224,13 @@ static void pause_armor(void)
 {
     s_paused = true;
     close_sheet(false);
+    ESP_LOGI(TAG, "ARMOR overlay open");
 }
 
 static void resume_armor(void)
 {
     s_paused = false;
+    ESP_LOGI(TAG, "ARMOR overlay closed");
 }
 
 static lv_obj_t *surface(lv_obj_t *parent, int width, int height, uint32_t color)
@@ -263,9 +246,9 @@ static lv_obj_t *surface(lv_obj_t *parent, int width, int height, uint32_t color
     return obj;
 }
 
-static lv_obj_t *reactor_ring(int diameter, uint32_t fill, uint32_t edge, int width)
+static lv_obj_t *reactor_ring(lv_obj_t *parent, int diameter, uint32_t fill, uint32_t edge, int width)
 {
-    lv_obj_t *ring = surface(s_screen, diameter, diameter, fill);
+    lv_obj_t *ring = surface(parent, diameter, diameter, fill);
     lv_obj_center(ring);
     lv_obj_set_style_radius(ring, LV_RADIUS_CIRCLE, 0);
     lv_obj_set_style_border_width(ring, width, 0);
@@ -273,9 +256,9 @@ static lv_obj_t *reactor_ring(int diameter, uint32_t fill, uint32_t edge, int wi
     return ring;
 }
 
-static lv_obj_t *reactor_arc(int diameter, int start, int length, int width, uint32_t color)
+static lv_obj_t *reactor_arc(lv_obj_t *parent, int diameter, int start, int length, int width, uint32_t color)
 {
-    lv_obj_t *arc = lv_arc_create(s_screen);
+    lv_obj_t *arc = lv_arc_create(parent);
     lv_obj_remove_style(arc, NULL, LV_PART_KNOB);
     lv_obj_clear_flag(arc, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_set_size(arc, diameter, diameter);
@@ -304,32 +287,57 @@ static void create_direction_marker(lv_obj_t *parent, uint32_t color)
     lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 30);
 }
 
-static void create_reactor(void)
+/* The reactor is a still cover: its rings and marks are drawn once into an image, so the screen
+ * is not redrawn while flying and the CPU stays free for the motion sensor and Bluetooth. */
+static void create_reactor_base(void)
 {
-    reactor_ring(360, 0x111e2b, 0x3a4b57, 5);
-    reactor_ring(336, 0x071421, 0x5a342c, 3);
-    reactor_ring(304, 0x102b3d, 0x557587, 3);
-    reactor_ring(260, 0x071725, 0x4499ac, 2);
-    reactor_ring(222, 0x0b2639, 0x235767, 4);
-    reactor_ring(178, 0x0a1b2a, 0x6fc2d1, 2);
-    s_glow = reactor_ring(146, 0x113a50, 0x39698b, 4);
-
+    lv_obj_t *base = surface(s_screen, 360, 360, 0x0a111c);
+    lv_obj_center(base);
+    reactor_ring(base, 360, 0x111e2b, 0x3a4b57, 5);
+    reactor_ring(base, 336, 0x071421, 0x5a342c, 3);
+    reactor_ring(base, 304, 0x102b3d, 0x557587, 3);
+    reactor_ring(base, 260, 0x071725, 0x4499ac, 2);
+    reactor_ring(base, 222, 0x0b2639, 0x235767, 4);
+    reactor_ring(base, 178, 0x0a1b2a, 0x6fc2d1, 2);
     for (int sector = 0; sector < 12; ++sector) {
         const int start = sector * 30;
-        reactor_arc(326, start + 4, 22, 8, 0x6e4934);
-        reactor_arc(290, start + 5, 20, 10, 0x3a9daf);
-        reactor_arc(246, start + 10, 10, 3, 0xb0e6ef);
+        reactor_arc(base, 326, start + 4, 22, 8, 0x6e4934);
+        reactor_arc(base, 290, start + 5, 20, 10, 0x3a9daf);
+        reactor_arc(base, 246, start + 10, 10, 3, 0xb0e6ef);
     }
+    reactor_ring(base, 146, 0x113a50, 0x39698b, 4);
     for (int segment = 0; segment < 3; ++segment) {
-        s_segments[segment] = reactor_arc(211, segment * 120, 64, 8, 0x4181af);
-        reactor_arc(131, segment * 120 + 20, 80, 7, 0x8edce8);
+        reactor_arc(base, 131, segment * 120 + 20, 80, 7, 0x8edce8);
     }
+    reactor_ring(base, 105, 0x082130, 0x39727e, 2);
+    for (int segment = 0; segment < 3; ++segment) {
+        reactor_arc(base, 211, segment * 120, 64, 8, 0x67eaff);
+    }
+    lv_obj_t *core = reactor_ring(base, 65, 0x67eaff, 0xccfaff, 3);
+    lv_obj_set_style_outline_width(core, 6, 0);
+    lv_obj_set_style_outline_pad(core, 8, 0);
+    lv_obj_set_style_outline_color(core, lv_color_hex(0x67eaff), 0);
+    lv_obj_set_style_outline_opa(core, LV_OPA_50, 0);
+    reactor_ring(base, 38, 0xcffbff, 0xe8ffff, 2);
+    lv_obj_update_layout(base);
 
-    reactor_ring(105, 0x082130, 0x39727e, 2);
-    s_core = reactor_ring(65, 0x4181af, 0xccfaff, 3);
-    lv_obj_set_style_outline_width(s_core, 6, 0);
-    lv_obj_set_style_outline_pad(s_core, 8, 0);
-    reactor_ring(38, 0xcffbff, 0xe8ffff, 2);
+    static lv_img_dsc_t image;
+    const uint32_t size = lv_snapshot_buf_size_needed(base, LV_IMG_CF_TRUE_COLOR);
+    void *pixels = heap_caps_malloc(size, MALLOC_CAP_SPIRAM);
+    if (!pixels || lv_snapshot_take_to_buf(base, LV_IMG_CF_TRUE_COLOR, &image, pixels, size) != LV_RES_OK) {
+        heap_caps_free(pixels);
+        ESP_LOGW(TAG, "Reactor image unavailable (%lu bytes); drawing the rings live", (unsigned long)size);
+        return;
+    }
+    lv_obj_del(base);
+    lv_obj_t *picture = lv_img_create(s_screen);
+    lv_img_set_src(picture, &image);
+    lv_obj_center(picture);
+}
+
+static void create_reactor(void)
+{
+    create_reactor_base();
     create_direction_marker(s_screen, 0x67eaff);
 }
 
@@ -490,7 +498,8 @@ void ui_helloapp_start(void)
     sdgoods_app_shell_set_pause_cb(pause_armor);
     sdgoods_app_shell_set_resume_cb(resume_armor);
     lv_timer_create(update_screen, SCREEN_PERIOD_MS, NULL);
-    xTaskCreate(control_task, "armor_ctl", 4096, NULL, 5, NULL);
+    /* Above the UI task (6), so a slow frame never delays a control packet. */
+    xTaskCreate(control_task, "armor_ctl", 4096, NULL, 7, NULL);
 }
 
 void ui_helloapp_poll(void)

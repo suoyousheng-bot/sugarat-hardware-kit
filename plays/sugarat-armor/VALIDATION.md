@@ -4,4 +4,4 @@ Recorded results for the community release. They describe the recorded build and
 
 ## Community release notes
 
-The reactor display and browser Bluetooth connection were verified on a physical Sugarat round badge during development.
+The reactor display and browser Bluetooth connection were verified during development. This source release was checked by building its repository and standalone projects.

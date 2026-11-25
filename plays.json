@@ -20,7 +20,7 @@
       "manifest": "plays/squad-talk/play.json"
     },
     "sugarat-armor": {
-      "version": "0.1.8",
+      "version": "0.1.12",
       "productId": "sugarat-esp32s3-round",
       "sourceDirectory": "plays/sugarat-armor",
       "manifest": "plays/sugarat-armor/play.json"
