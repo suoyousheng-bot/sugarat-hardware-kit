@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "kitVersion": "0.3.10",
+  "kitVersion": "0.3.11",
   "productId": "sugarat-esp32s3-round",
   "snapshotDate": "2026-11-26",
   "board": "boards/sugarat-esp32s3-round.json",

@@ -46,7 +46,7 @@ Give your preferred Agent this kit's GitHub entry link to develop firmware for t
 <a id="give-this-kit-to-an-agent"></a>
 ## Give this kit to an Agent
 
-Copy [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) into your preferred Agent, then describe the application you want. The sentence points to the fixed [v0.3.10 Agent entry](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.10/AGENTS.md); the complete [v0.3.10 source ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.10.zip) contains the matching kit. The receiving Agent reads [AGENTS.md](AGENTS.md) and [SKILL.md](SKILL.md), then downloads that version. A supported Skill installer must retain the whole directory, including assets and scripts.
+Copy [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) into your preferred Agent, then describe the application you want. The sentence points to the fixed [v0.3.11 Agent entry](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.11/AGENTS.md); the complete [v0.3.11 source ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.11.zip) contains the matching kit. The receiving Agent reads [AGENTS.md](AGENTS.md) and [SKILL.md](SKILL.md), then downloads that version. A supported Skill installer must retain the whole directory, including assets and scripts.
 
 Generate the sentence for an actual publication destination with `python3 scripts/kit.py prompt --repo <repository-url> --ref <release-tag-or-commit> --task <application-request>`. This command formats text; it does not publish or check repository access. The output can be copied by a product clipboard action.
 
@@ -221,6 +221,7 @@ In this repository each component is stored once. Plays reference shared copies 
 | `sugarat-radio` | Sugarat Radio · New Flow Integration Test | 0.1.1 | 0.1.1 | [sugarat-radio.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-radio.tar.gz) |
 | `sugarat-recorder` | Sugarat Voice Recorder | 0.1.4 | 0.1.4 | [sugarat-recorder.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-recorder.tar.gz) |
 | `sugarat-wolf` | Wolf Companion | 1.1.0 | 1.1.0 | [sugarat-wolf.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.7/sugarat-wolf.tar.gz) |
+| `sugarat-zodiac` | Zodiac Ring | 0.1.1 | 0.1.1 | [sugarat-zodiac.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.11/sugarat-zodiac.tar.gz) |
 
 The Pocket Companion and Round Race sources are newer than their community images; the other sources match the published versions.
 
@@ -238,7 +239,7 @@ Compilation, written-byte verification, startup and physical acceptance are sepa
 <a id="publishing"></a>
 ## Publishing
 
-The current kit and per-play source attachments are available in [Sugarat Hardware Kit v0.3.10](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.10). To publish a fork, follow the [publishing guide](references/publishing.md).
+The current kit and per-play source attachments are available in [Sugarat Hardware Kit v0.3.11](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.11). To publish a fork, follow the [publishing guide](references/publishing.md).
 
 ## Dev Note
 

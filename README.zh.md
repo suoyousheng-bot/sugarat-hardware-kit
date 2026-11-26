@@ -46,7 +46,7 @@ description: "使用独立的硬件资料、源码模板、UI 主题和 Agent Sk
 <a id="give-this-kit-to-an-agent"></a>
 ## 交给其他 Agent
 
-复制 [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) 给常用 Agent，再描述想做的应用。文案指向固定的 [v0.3.10 Agent 入口](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.10/AGENTS.md)；同版本完整资源包可从 [v0.3.10 源码 ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.10.zip) 获取。接收方 Agent 先读 [AGENTS.md](AGENTS.md) 和 [SKILL.md](SKILL.md)，再下载该版本资源。支持 Skill 安装的工具必须保留整个目录，包括资源和脚本。
+复制 [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) 给常用 Agent，再描述想做的应用。文案指向固定的 [v0.3.11 Agent 入口](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.11/AGENTS.md)；同版本完整资源包可从 [v0.3.11 源码 ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.11.zip) 获取。接收方 Agent 先读 [AGENTS.md](AGENTS.md) 和 [SKILL.md](SKILL.md)，再下载该版本资源。支持 Skill 安装的工具必须保留整个目录，包括资源和脚本。
 
 可用 `python3 scripts/kit.py prompt --repo <repository-url> --ref <release-tag-or-commit> --task <application-request>` 为实际发布地址生成一句话。此命令只生成文字，不发布仓库，也不检查访问权限；产品的复制按钮可以直接复制其输出。
 
@@ -221,6 +221,7 @@ Sugarat 玩法社区中提供「做同款」的官方玩法，完整源码都在
 | `sugarat-radio` | Sugarat Radio · New Flow Integration Test | 0.1.1 | 0.1.1 | [sugarat-radio.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-radio.tar.gz) |
 | `sugarat-recorder` | Sugarat Voice Recorder | 0.1.4 | 0.1.4 | [sugarat-recorder.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-recorder.tar.gz) |
 | `sugarat-wolf` | Wolf Companion | 1.1.0 | 1.1.0 | [sugarat-wolf.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.7/sugarat-wolf.tar.gz) |
+| `sugarat-zodiac` | Zodiac Ring | 0.1.1 | 0.1.1 | [sugarat-zodiac.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.11/sugarat-zodiac.tar.gz) |
 
 Pocket Companion 和 Round Race 的源码比社区镜像更新，其余源码与已发布版本一致。
 
@@ -238,7 +239,7 @@ Pocket Companion 和 Round Race 的源码比社区镜像更新，其余源码与
 <a id="publishing"></a>
 ## 发布
 
-当前资源包和各玩法源码附件见 [Sugarat 硬件开发资源包 v0.3.10](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.10)。发布衍生版本时请参阅[发布说明](references/publishing.md)。
+当前资源包和各玩法源码附件见 [Sugarat 硬件开发资源包 v0.3.11](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.11)。发布衍生版本时请参阅[发布说明](references/publishing.md)。
 
 ## 开发备注
 

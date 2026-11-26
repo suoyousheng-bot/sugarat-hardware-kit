@@ -96,6 +96,12 @@
       "productId": "sugarat-esp32s3-round",
       "sourceDirectory": "plays/sugarat-wolf",
       "manifest": "plays/sugarat-wolf/play.json"
+    },
+    "sugarat-zodiac": {
+      "version": "0.1.1",
+      "productId": "sugarat-esp32s3-round",
+      "sourceDirectory": "plays/sugarat-zodiac",
+      "manifest": "plays/sugarat-zodiac/play.json"
     }
   }
 }
