@@ -46,7 +46,7 @@ Give your preferred Agent this kit's GitHub entry link to develop firmware for t
 <a id="give-this-kit-to-an-agent"></a>
 ## Give this kit to an Agent
 
-Copy [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) into your preferred Agent, then describe the application you want. The sentence points to the fixed [v0.3.5 Agent entry](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.5/AGENTS.md); the complete [v0.3.5 source ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.5.zip) contains the matching kit. The receiving Agent reads [AGENTS.md](AGENTS.md) and [SKILL.md](SKILL.md), then downloads that version. A supported Skill installer must retain the whole directory, including assets and scripts.
+Copy [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) into your preferred Agent, then describe the application you want. The sentence points to the fixed [v0.3.10 Agent entry](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.10/AGENTS.md); the complete [v0.3.10 source ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.10.zip) contains the matching kit. The receiving Agent reads [AGENTS.md](AGENTS.md) and [SKILL.md](SKILL.md), then downloads that version. A supported Skill installer must retain the whole directory, including assets and scripts.
 
 Generate the sentence for an actual publication destination with `python3 scripts/kit.py prompt --repo <repository-url> --ref <release-tag-or-commit> --task <application-request>`. This command formats text; it does not publish or check repository access. The output can be copied by a product clipboard action.
 
@@ -207,7 +207,7 @@ In this repository each component is stored once. Plays reference shared copies 
 | --- | --- | --- | --- | --- |
 | `lz-3d` | lz Real-Time 3D Character | 1.0.0 | 1.0.0 | [lz-3d.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/lz-3d.tar.gz) |
 | `pomodoro-alarm` | Pomodoro Alarm | 1.1.0 | 1.1.0 | [pomodoro-alarm.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/pomodoro-alarm.tar.gz) |
-| `squad-talk` | Squad Talk | 0.1.3 | 0.1.3 | [squad-talk.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/squad-talk.tar.gz) |
+| `squad-talk` | Squad Talk | 0.2.0 | 0.2.0 | [squad-talk.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.10/squad-talk.tar.gz) |
 | `sugarat-armor` | Armor Fly | 0.1.12 | 0.1.12 | [sugarat-armor.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.9/sugarat-armor.tar.gz) |
 | `sugarat-beat` | Sugarat Beat | 0.1.3 | 0.1.3 | [sugarat-beat.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-beat.tar.gz) |
 | `sugarat-bird` | Pocket Bird | 0.1.0 | 0.1.0 | [sugarat-bird.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-bird.tar.gz) |
@@ -238,7 +238,7 @@ Compilation, written-byte verification, startup and physical acceptance are sepa
 <a id="publishing"></a>
 ## Publishing
 
-The current kit and per-play source attachments are available in [Sugarat Hardware Kit v0.3.5](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.5). To publish a fork, follow the [publishing guide](references/publishing.md).
+The current kit and per-play source attachments are available in [Sugarat Hardware Kit v0.3.10](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.10). To publish a fork, follow the [publishing guide](references/publishing.md).
 
 ## Dev Note
 

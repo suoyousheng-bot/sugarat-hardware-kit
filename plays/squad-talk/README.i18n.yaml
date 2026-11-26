@@ -1,34 +1,34 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write plays/squad-talk/README.md
+#   pnpm run verify-translation-pairing --write .thinkready/squad-talk/group/source-release.xpfkOb/kit/plays/squad-talk/README.md
 /:
-  en: f4589671f2657333
-  zh: ec45aa6998ea366b
+  en: 46ce0f1db66cd057
+  zh: a727358d3595c3e6
 /sugarat-squad-talk:
-  en: e13214dee8f26f27
-  zh: 2b1e99133d41de3c
+  en: f32f9bd8417c0492
+  zh: f73bd9fe759dad6e
 /sugarat-squad-talk/summary:
-  en: 83d545429556a9cb
-  zh: 396bb96654390875
+  en: 8f5ca63e9a04dd11
+  zh: eea31b618fd97978
 /sugarat-squad-talk/contents:
   en: d0f1e8e7b28b84ce
   zh: 3b5d454b6a9847f9
 /sugarat-squad-talk/use:
-  en: 613e182f15a5b15f
-  zh: a2ce97d7385ed161
+  en: c1cff70a50e3f03f
+  zh: 08e3f7722891c3d9
 /sugarat-squad-talk/build:
-  en: 82680da8856d5a72
-  zh: dfddc646dda2acb2
+  en: c80f74c78f014201
+  zh: 47b7f6216761dbd1
 /sugarat-squad-talk/host-checks:
-  en: 78b857eafd236f4b
-  zh: 7fc3b5c12d59b782
+  en: e158fc40e6f24299
+  zh: 915200325af82619
 /sugarat-squad-talk/communication-and-failures:
-  en: f5d1861bb796731d
-  zh: 7247254823f07487
+  en: 8355519947fbc145
+  zh: 69baf72198e4621d
 /sugarat-squad-talk/hardware-and-sources:
-  en: 42d656a3c7aa3e6d
-  zh: 8dbb14b5185729cf
+  en: 7e2580d3ab379a0d
+  zh: a26a21c436e504c8
 /sugarat-squad-talk/dev-note:
   en: b75c8458928b72b9
   zh: 003ba4e17b4b5269

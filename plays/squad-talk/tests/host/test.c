@@ -10,34 +10,68 @@ extern const lv_font_t sg_font_icon_24,sg_font_icon_40;
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {unsigned from;size_t size;uint8_t data[TALK_PACKET_MAX],destination[6];} queued_t;
-static queued_t wire[512];static unsigned head,tail;static talk_core_t peers[2];
-static unsigned played[2];static bool fail_send;static uint64_t clock_ms;
-static bool send_wire(const uint8_t *destination,const uint8_t *data,size_t size,void *user)
+enum { PEERS = 4, LARGE_GROUP = 24, WIRE_SIZE = 512 };
+typedef struct {unsigned from;size_t size;uint8_t data[TALK_PACKET_MAX];} queued_t;
+static queued_t wire[WIRE_SIZE];
+static talk_core_t peers[LARGE_GROUP];
+static unsigned head,tail,peer_count,played[LARGE_GROUP];
+static bool fail_send,partitioned;
+static int skip_peer;
+static uint64_t clock_ms;
+
+static bool send_wire(const uint8_t *data,size_t size,void *user)
 {
-    unsigned id=(unsigned)(uintptr_t)user;
     if(fail_send)return false;
-    assert(tail-head<512&&size<=TALK_PACKET_MAX);
-    queued_t *p=&wire[tail++%512];p->from=id;p->size=size;memcpy(p->data,data,size);memcpy(p->destination,destination,6);return true;
+    assert(tail-head<WIRE_SIZE&&size<=TALK_PACKET_MAX);
+    queued_t *p=&wire[tail++%WIRE_SIZE];
+    p->from=(unsigned)(uintptr_t)user;
+    p->size=size;
+    memcpy(p->data,data,size);
+    return true;
 }
-static void play_wire(const int16_t *pcm,size_t n,void *user)
-{assert(n==TALK_SAMPLES&&pcm);played[(unsigned)(uintptr_t)user]++;}
+static void play_wire(const int16_t *pcm,size_t n,uint32_t turn,void *user)
+{
+    assert(n==TALK_SAMPLES&&pcm&&turn);
+    played[(unsigned)(uintptr_t)user]++;
+}
 static void deliver(void)
 {
     unsigned limit=0;
-    while(head<tail){assert(limit++<500);queued_t p=wire[head++%512];unsigned other=1-p.from;talk_core_receive(&peers[other],peers[p.from].mac,p.data,p.size);}
-}
-static void reset_peers(void)
-{
-    head=tail=played[0]=played[1]=0;clock_ms=100;fail_send=false;
-    const uint8_t a[6]={2,0,0,0,0,1},b[6]={2,0,0,0,0,2};
-    talk_core_init(&peers[0],a,10,send_wire,play_wire,(void *)(uintptr_t)0);
-    talk_core_init(&peers[1],b,20,send_wire,play_wire,(void *)(uintptr_t)1);
-    talk_core_tick(&peers[0],clock_ms);talk_core_tick(&peers[1],clock_ms);deliver();
-    assert(peers[0].phase==TALK_READY&&peers[1].phase==TALK_READY);
+    while(head<tail){
+        assert(limit++<WIRE_SIZE);
+        queued_t p=wire[head++%WIRE_SIZE];
+        for(unsigned i=0;i<peer_count;i++){
+            if(i!=p.from&&(int)i!=skip_peer&&(!partitioned||i/2==p.from/2))
+                talk_core_receive(&peers[i],peers[p.from].mac,p.data,p.size);
+        }
+    }
 }
 static void advance(unsigned ms)
-{clock_ms+=ms;talk_core_tick(&peers[0],clock_ms);talk_core_tick(&peers[1],clock_ms);deliver();}
+{
+    clock_ms+=ms;
+    for(unsigned i=0;i<peer_count;i++)talk_core_tick(&peers[i],clock_ms);
+    deliver();
+}
+static void reset_peers(unsigned count)
+{
+    peer_count=count;
+    head=tail=0;
+    memset(played,0,sizeof(played));
+    clock_ms=100;
+    fail_send=partitioned=false;
+    skip_peer=-1;
+    for(unsigned i=0;i<peer_count;i++){
+        const uint8_t mac[6]={2,0,0,0,0,(uint8_t)(i+1)};
+        talk_core_init(&peers[i],mac,10*(i+1),send_wire,play_wire,(void *)(uintptr_t)i);
+    }
+    advance(0);
+    for(unsigned i=0;i<peer_count;i++)assert(peers[i].phase==TALK_READY);
+}
+static void settle_turn(void)
+{
+    deliver();
+    for(unsigned i=0;i<10;i++)advance(10);
+}
 static void codec_tests(void)
 {
     int16_t pcm[TALK_SAMPLES],decoded[TALK_SAMPLES];uint8_t coded[TALK_AUDIO_BYTES];double error=0,energy=0;
@@ -54,44 +88,125 @@ static void codec_tests(void)
 }
 static void protocol_tests(void)
 {
-    reset_peers();int16_t audio[TALK_SAMPLES]={0};
+    int16_t audio[TALK_SAMPLES]={0};
+    reset_peers(PEERS);
     for(unsigned turn=0;turn<200;turn++){
-        unsigned a=turn%2,b=1-a;talk_core_hold(&peers[a],true);deliver();
-        assert(peers[a].phase==TALK_TRANSMITTING&&peers[b].phase==TALK_RECEIVING);
-        talk_core_audio(&peers[a],audio);deliver();
-        talk_core_hold(&peers[a],false);deliver();
-        assert(peers[a].phase==TALK_READY&&peers[b].phase==TALK_READY);advance(16);
+        unsigned speaker=turn%PEERS;
+        talk_core_hold(&peers[speaker],true);
+        settle_turn();
+        for(unsigned i=0;i<PEERS;i++)assert(peers[i].phase==(i==speaker?TALK_TRANSMITTING:TALK_RECEIVING));
+        talk_core_audio(&peers[speaker],audio);deliver();
+        talk_core_hold(&peers[speaker],false);deliver();
+        for(unsigned i=0;i<PEERS;i++)assert(peers[i].phase==TALK_READY);
+        advance(16);
     }
-    assert(played[0]==100&&played[1]==100);
-    reset_peers();talk_core_hold(&peers[0],true);talk_core_hold(&peers[1],true);deliver();
-    assert(peers[0].phase==TALK_TRANSMITTING&&peers[1].phase==TALK_RECEIVING);
-    talk_core_hold(&peers[0],false);deliver();assert(peers[1].phase==TALK_READY);
+    for(unsigned i=0;i<PEERS;i++)assert(played[i]==150);
+
+    reset_peers(PEERS);
+    for(unsigned i=PEERS;i>0;i--)talk_core_hold(&peers[i-1],true);
+    settle_turn();
+    assert(peers[0].phase==TALK_TRANSMITTING);
+    for(unsigned i=1;i<PEERS;i++)assert(peers[i].phase==TALK_RECEIVING&&!memcmp(peers[i].speaker,peers[0].mac,6));
+    talk_core_audio(&peers[0],audio);deliver();
+    talk_core_hold(&peers[0],false);deliver();
     talk_core_hold(&peers[1],true);assert(peers[1].phase==TALK_READY);
-    talk_core_hold(&peers[1],false);talk_core_hold(&peers[1],true);deliver();assert(peers[1].phase==TALK_TRANSMITTING);
-    reset_peers();talk_core_hold(&peers[0],true);talk_core_hold(&peers[0],false);deliver();
-    assert(peers[0].phase!=TALK_TRANSMITTING);advance(700);assert(peers[1].phase==TALK_READY);
-    reset_peers();talk_core_hold(&peers[0],true);deliver();
-    talk_core_audio(&peers[0],audio);queued_t packet=wire[(tail-1)%512];deliver();unsigned before=played[1];
-    talk_core_receive(&peers[1],peers[0].mac,packet.data,packet.size);assert(played[1]==before);
-    talk_core_channel(&peers[1],2);talk_core_receive(&peers[1],peers[0].mac,packet.data,packet.size);assert(played[1]==before);
-    deliver();advance(600);assert(peers[1].phase==TALK_WAITING);
-    talk_core_channel(&peers[1],1);advance(600);assert(peers[1].phase==TALK_READY);
-    reset_peers();talk_core_hold(&peers[0],true);deliver();talk_core_pause(&peers[0],true);deliver();
-    assert(peers[0].phase==TALK_PAUSED&&peers[1].phase==TALK_READY);talk_core_tick(&peers[0],++clock_ms);deliver();
-    assert(peers[1].phase==TALK_WAITING);talk_core_pause(&peers[0],false);advance(600);assert(peers[1].phase==TALK_READY);
-    reset_peers();talk_core_hold(&peers[0],true);head=tail;talk_core_tick(&peers[0],1100);assert(peers[0].phase==TALK_READY&&peers[0].transport_failed);
-    reset_peers();talk_core_hold(&peers[0],true);deliver();fail_send=true;talk_core_audio(&peers[0],audio);assert(peers[0].phase==TALK_READY&&peers[0].transport_failed);
-    reset_peers();talk_core_tick(&peers[0],4000);assert(peers[0].phase==TALK_WAITING);
-    reset_peers();talk_core_hold(&peers[0],true);deliver();for(unsigned i=0;i<59;i++){talk_core_audio(&peers[0],audio);deliver();advance(500);assert(peers[0].phase==TALK_TRANSMITTING);}
-    talk_core_audio(&peers[0],audio);deliver();advance(600);assert(peers[0].phase!=TALK_TRANSMITTING);
-    reset_peers();talk_core_hold(&peers[0],true);deliver();talk_core_audio(&peers[0],audio);packet=wire[(tail-1)%512];deliver();
+    talk_core_hold(&peers[1],false);talk_core_hold(&peers[1],true);settle_turn();
+    assert(peers[1].phase==TALK_TRANSMITTING);
+
+    reset_peers(PEERS);
+    talk_core_hold(&peers[0],true);talk_core_hold(&peers[0],false);settle_turn();
+    for(unsigned i=0;i<PEERS;i++)assert(peers[i].phase==TALK_READY);
+
+    reset_peers(PEERS);
+    talk_core_channel(&peers[3],2);advance(0);
+    skip_peer=2;
+    talk_core_hold(&peers[0],true);settle_turn();
+    assert(peers[0].phase==TALK_TRANSMITTING&&peers[1].phase==TALK_RECEIVING);
+    assert(peers[2].phase==TALK_READY&&peers[3].phase==TALK_WAITING);
+    skip_peer=-1;
+    talk_core_audio(&peers[0],audio);
+    queued_t packet=wire[(tail-1)%WIRE_SIZE];
+    deliver();
+    assert(played[0]==0&&played[1]==1&&played[2]==1&&played[3]==0);
+    talk_core_receive(&peers[1],peers[0].mac,packet.data,packet.size);assert(played[1]==1);
+    talk_core_hold(&peers[0],false);deliver();
+    talk_core_receive(&peers[1],peers[0].mac,packet.data,packet.size);assert(played[1]==1&&peers[1].phase==TALK_READY);
+
+    reset_peers(PEERS);
+    talk_core_hold(&peers[0],true);settle_turn();
+    talk_core_audio(&peers[0],audio);deliver();
+    talk_core_pause(&peers[1],true);advance(0);
+    talk_core_channel(&peers[2],2);advance(0);
+    talk_core_audio(&peers[0],audio);deliver();
+    assert(played[1]==1&&played[2]==1&&played[3]==2);
+    assert(peers[0].phase==TALK_TRANSMITTING&&peers[3].phase==TALK_RECEIVING);
+    talk_core_pause(&peers[0],true);deliver();
+    assert(peers[0].phase==TALK_PAUSED&&peers[3].phase==TALK_READY);
+
+    reset_peers(PEERS);
+    partitioned=true;
+    talk_core_hold(&peers[0],true);talk_core_hold(&peers[2],true);settle_turn();
+    assert(peers[0].phase==TALK_TRANSMITTING&&peers[2].phase==TALK_TRANSMITTING);
+    talk_core_audio(&peers[0],audio);talk_core_audio(&peers[2],audio);deliver();
+    partitioned=false;
+    talk_core_audio(&peers[2],audio);deliver();
+    assert(peers[0].phase==TALK_TRANSMITTING&&played[1]==1);
+    talk_core_audio(&peers[0],audio);deliver();
+    assert(peers[2].phase==TALK_RECEIVING&&played[2]==1&&played[3]==3);
+    assert(!memcmp(peers[3].speaker,peers[0].mac,6));
+
+    reset_peers(PEERS);
+    talk_core_hold(&peers[0],true);deliver();
+    skip_peer=0;
+    advance(50);
+    skip_peer=-1;
+    assert(peers[0].phase==TALK_REQUESTING&&!peers[0].granted);
+    advance(50);
+    for(unsigned i=0;i<5;i++)advance(10);
+    assert(peers[0].phase==TALK_TRANSMITTING);
+
+    reset_peers(PEERS);
+    talk_core_hold(&peers[0],true);head=tail;
+    talk_core_tick(&peers[0],1100);assert(peers[0].phase==TALK_READY&&peers[0].transport_failed);
+    reset_peers(PEERS);
+    talk_core_hold(&peers[0],true);settle_turn();
+    fail_send=true;
+    talk_core_audio(&peers[0],audio);assert(peers[0].phase==TALK_READY&&peers[0].transport_failed);
+    advance(600);assert(peers[1].phase==TALK_READY);
+    reset_peers(PEERS);talk_core_tick(&peers[0],4000);assert(peers[0].phase==TALK_WAITING);
+    reset_peers(PEERS);
+    talk_core_hold(&peers[0],true);settle_turn();
+    for(unsigned i=0;i<60;i++){
+        assert(peers[0].phase==TALK_TRANSMITTING);
+        talk_core_audio(&peers[0],audio);deliver();advance(500);
+    }
+    assert(peers[0].phase==TALK_READY&&peers[1].phase==TALK_READY);
     talk_packet_t p;assert(talk_packet_read(&p,packet.data,packet.size));
     for(size_t n=0;n<packet.size;n++)assert(!talk_packet_read(&p,packet.data,n));
     const unsigned bad[]={0,4,5,6,7,20,21,22,23,26,27};
     for(unsigned i=0;i<sizeof(bad)/sizeof(bad[0]);i++){uint8_t copy[TALK_PACKET_MAX];memcpy(copy,packet.data,packet.size);copy[bad[i]]=255;assert(!talk_packet_read(&p,copy,packet.size));}
+    packet.data[4]=1;
+    assert(!talk_packet_read(&p,packet.data,packet.size));
     uint32_t random=1;uint8_t fuzz[TALK_PACKET_MAX];
     for(unsigned i=0;i<10000;i++){for(unsigned j=0;j<sizeof(fuzz);j++){random=random*1664525+1013904223;fuzz[j]=(uint8_t)(random>>24);}talk_packet_read(&p,fuzz,i%sizeof(fuzz));}
-    puts("PASS: 200 bidirectional turns, simultaneous press, early release, duplicate/stale/group isolation, pause, peer loss, send/request/voice timeouts and malformed packets");
+    puts("PASS: 200 turns across four badges, simultaneous presses, split radio recovery, late join, duplicate/ended packets, channel isolation, listener pause, timeouts and malformed packets");
+}
+
+static void large_group_test(void)
+{
+    reset_peers(LARGE_GROUP);
+    int16_t audio[TALK_SAMPLES]={0};
+    for(unsigned speaker=0;speaker<LARGE_GROUP;speaker++){
+        talk_core_hold(&peers[speaker],true);settle_turn();
+        assert(peers[speaker].phase==TALK_TRANSMITTING);
+        unsigned before=tail;
+        talk_core_audio(&peers[speaker],audio);
+        assert(tail==before+1);
+        deliver();
+        talk_core_hold(&peers[speaker],false);deliver();
+    }
+    for(unsigned i=0;i<LARGE_GROUP;i++)assert(played[i]==LARGE_GROUP-1&&peers[i].phase==TALK_READY);
+    puts("PASS: 24 simulated badges, one broadcast per voice block and 23 listeners per turn");
 }
 
 static talk_status_t ui_status={.channel=1};static bool ui_held,ui_paused,ui_stopped,menu,suspended;
@@ -194,4 +309,4 @@ static void ui_tests(const char *out)
     lv_indev_delete(device);lv_disp_remove(display);lv_deinit();
     puts("PASS: actual LVGL half-ellipse hold/release/drag-out, swipe directions/wrap/one-step, short/diagonal/top-edge rejection, speech/swipe isolation, overlay/sleep cancellation and circle-safe glyphs");
 }
-int main(int argc,char **argv){assert(argc==2);codec_tests();protocol_tests();ui_tests(argv[1]);return 0;}
+int main(int argc,char **argv){assert(argc==2);codec_tests();protocol_tests();large_group_test();ui_tests(argv[1]);return 0;}

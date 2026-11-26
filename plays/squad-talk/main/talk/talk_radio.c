@@ -29,6 +29,7 @@ static struct {
     esp_now_send_status_t send_result;
 } radio;
 static portMUX_TYPE lock=portMUX_INITIALIZER_UNLOCKED;
+static const uint8_t broadcast[6]={255,255,255,255,255,255};
 static const char *TAG="squad_talk";
 static bool flush_audio(uint32_t timeout)
 {
@@ -48,26 +49,29 @@ static void sent(const wifi_tx_info_t *info,esp_now_send_status_t status)
 {
     (void)info;radio.send_result=status;xSemaphoreGive(radio.sent);
 }
-static bool send_packet(const uint8_t *destination,const uint8_t *data,size_t size,void *user)
+static bool send_packet(const uint8_t *data,size_t size,void *user)
 {
     (void)user;
     portENTER_CRITICAL(&lock);bool broken=radio.stop&&radio.status.fault==TALK_FAULT_RADIO;portEXIT_CRITICAL(&lock);
     if(broken)return false;
-    if(!esp_now_is_peer_exist(destination)){
-        esp_now_peer_info_t peer={.channel=6,.ifidx=WIFI_IF_STA,.encrypt=false};memcpy(peer.peer_addr,destination,6);
-        if(esp_now_add_peer(&peer)!=ESP_OK)return false;
-    }
     /* Exactly one outstanding packet keeps callback completions associated with their send. */
-    if(esp_now_send(destination,data,size)!=ESP_OK)return false;
+    if(esp_now_send(broadcast,data,size)!=ESP_OK)return false;
     if(xSemaphoreTake(radio.sent,pdMS_TO_TICKS(80))!=pdTRUE){
         portENTER_CRITICAL(&lock);radio.stop=true;radio.status.fault=TALK_FAULT_RADIO;portEXIT_CRITICAL(&lock);
         return false;
     }
     return radio.send_result==ESP_NOW_SEND_SUCCESS;
 }
-static void play(const int16_t *samples,size_t count,void *user)
+static void play(const int16_t *samples,size_t count,uint32_t turn,void *user)
 {
-    (void)user;int16_t limited[TALK_SAMPLES];
+    portENTER_CRITICAL(&lock);bool fault=radio.status.fault!=TALK_FAULT_NONE;portEXIT_CRITICAL(&lock);
+    if(fault)return;
+    uint32_t *playback_turn=user;
+    if(*playback_turn!=turn){
+        if(!flush_audio(200))return;
+        *playback_turn=turn;
+    }
+    int16_t limited[TALK_SAMPLES];
     for(size_t i=0;i<count;i++)limited[i]=samples[i]>9000?9000:samples[i]<-9000?-9000:samples[i];
     if(sugarat_audio_stream_write(limited,count)!=count){
         flush_audio(200);portENTER_CRITICAL(&lock);radio.dropped++;portEXIT_CRITICAL(&lock);
@@ -111,6 +115,9 @@ static esp_err_t initialize(bool *wifi,bool *now,bool *audio)
     if((err=esp_wifi_set_channel(6,WIFI_SECOND_CHAN_NONE))!=ESP_OK)return err;
     if((err=esp_now_init())!=ESP_OK)return err;
     *now=true;
+    esp_now_peer_info_t peer={.channel=6,.ifidx=WIFI_IF_STA,.encrypt=false};
+    memcpy(peer.peer_addr,broadcast,sizeof(peer.peer_addr));
+    if((err=esp_now_add_peer(&peer))!=ESP_OK)return err;
     if((err=esp_now_register_recv_cb(receive))!=ESP_OK)return err;
     if((err=esp_now_register_send_cb(sent))!=ESP_OK)return err;
     sugarat_audio_stream_config_t stream={.on_mic=microphone,.playback_buffer_ms=400};
@@ -129,10 +136,11 @@ static void run(void *arg)
         uint8_t mac[6];err=esp_wifi_get_mac(WIFI_IF_STA,mac);
         if(err!=ESP_OK){portENTER_CRITICAL(&lock);radio.status.fault=TALK_FAULT_RADIO;portEXIT_CRITICAL(&lock);}
         else{
-            talk_core_t core;talk_core_init(&core,mac,esp_random(),send_packet,play,NULL);
+            uint32_t playback_turn=0;
+            talk_core_t core;talk_core_init(&core,mac,esp_random(),send_packet,play,&playback_turn);
             talk_phase_t previous=TALK_WAITING;
             uint64_t logged=0,last_loop=0,max_gap=0;uint32_t sent_audio=0;
-            ESP_LOGI(TAG,"SQUAD_TALK_READY version=0.1.3 RF=6 groups=1..8 MAC=" MACSTR,MAC2STR(mac));
+            ESP_LOGI(TAG,"SQUAD_TALK_READY version=0.2.0 RF=6 groups=1..8 MAC=" MACSTR,MAC2STR(mac));
             while(true){
                 portENTER_CRITICAL(&lock);bool held=radio.held,paused=radio.paused,stop=radio.stop;
                 uint8_t channel=radio.channel;talk_fault_t fault=radio.status.fault;portEXIT_CRITICAL(&lock);
@@ -140,20 +148,18 @@ static void run(void *arg)
                 core.now=(uint64_t)(esp_timer_get_time()/1000);
                 if(last_loop&&core.now-last_loop>max_gap)max_gap=core.now-last_loop;
                 last_loop=core.now;
+                bool channel_changed=channel!=core.channel;
                 talk_core_channel(&core,channel);talk_core_pause(&core,paused||fault!=TALK_FAULT_NONE);
+                if(channel_changed&&!flush_audio(200))talk_core_pause(&core,true);
                 talk_core_hold(&core,held&&!paused&&fault==TALK_FAULT_NONE);
                 received_t packet;
-                for(unsigned i=0;i<12&&xQueueReceive(radio.network,&packet,0)==pdTRUE;i++){
-                    /* The first valid group announcement adds the peer on demand when granting a request. */
-                    talk_phase_t before=core.phase;
+                for(unsigned i=0;i<12&&xQueueReceive(radio.network,&packet,0)==pdTRUE;i++)
                     talk_core_receive(&core,packet.source,packet.data,packet.size);
-                    if(before!=TALK_RECEIVING&&core.phase==TALK_RECEIVING)flush_audio(200);
-                }
                 talk_core_tick(&core,core.now);
                 bool capture=core.phase==TALK_TRANSMITTING;
                 if(core.phase!=previous){
                     ESP_LOGI(TAG,"STATE %u -> %u CH=%u",(unsigned)previous,(unsigned)core.phase,core.channel);
-                    if(capture||core.phase==TALK_PAUSED||channel!=radio.status.channel)flush_audio(200);
+                    if(capture||core.phase==TALK_PAUSED)flush_audio(200);
                     portENTER_CRITICAL(&lock);radio.generation++;radio.capture=capture;portEXIT_CRITICAL(&lock);
                     xQueueReset(radio.microphone);previous=core.phase;
                 }
@@ -164,7 +170,7 @@ static void run(void *arg)
                 }
                 sugarat_audio_status_t sound;sugarat_audio_get_status(&sound);
                 portENTER_CRITICAL(&lock);
-                radio.status.phase=core.phase;radio.status.channel=core.channel;radio.status.online=core.paired&&core.peer_available;
+                radio.status.phase=core.phase;radio.status.channel=core.channel;radio.status.online=core.online;
                 radio.status.link_failed=core.transport_failed;radio.status.received=core.received;radio.status.lost=core.lost;radio.status.queue_drops=radio.dropped;
                 if(!capture)radio.status.level=sound.out_level_percent;
                 portEXIT_CRITICAL(&lock);

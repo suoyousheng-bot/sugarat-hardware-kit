@@ -1,11 +1,13 @@
 /* Copyright (c) 2026 Deotaland. SPDX-License-Identifier: Apache-2.0 */
-/** Two-peer, half-duplex session protocol. One worker owns each instance; time is monotonic ms. */
+/** Group half-duplex session protocol. One worker owns each instance; time is monotonic ms. */
 #pragma once
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
 #define TALK_CHANNELS 8
+#define TALK_PROTOCOL_VERSION 2
+#define TALK_PRESENCE_SLOTS 16
 #define TALK_SAMPLES 256
 #define TALK_HEADER 24
 #define TALK_AUDIO_BYTES (4 + TALK_SAMPLES / 2)
@@ -20,13 +22,20 @@ typedef struct {
     const uint8_t *payload;
     size_t size;
 } talk_packet_t;
-typedef bool (*talk_send_fn)(const uint8_t *destination, const uint8_t *data, size_t size, void *user);
-typedef void (*talk_play_fn)(const int16_t *samples, size_t count, void *user);
+typedef bool (*talk_send_fn)(const uint8_t *data, size_t size, void *user);
+typedef void (*talk_play_fn)(const int16_t *samples, size_t count, uint32_t turn, void *user);
 typedef struct {
-    uint8_t mac[6], peer[6], channel;
-    uint32_t boot, peer_boot, session, remote_session, next_sequence, receive_sequence;
-    uint64_t now, peer_seen, remote_audio, started, hello_at, request_at;
-    bool paired, peer_available, held, paused, have_sequence, transport_failed;
+    uint8_t mac[6];
+    uint32_t boot, ended_session;
+    uint64_t seen;
+    bool available;
+} talk_member_t;
+typedef struct {
+    uint8_t mac[6], speaker[6], channel;
+    talk_member_t members[TALK_PRESENCE_SLOTS];
+    uint32_t boot, speaker_boot, session, remote_session, next_sequence, receive_sequence, receive_turn;
+    uint64_t now, remote_activity, started, hello_at, request_at, grant_at;
+    bool online, held, paused, granted, have_sequence, transport_failed;
     talk_phase_t phase;
     uint32_t received, lost, rejected;
     talk_send_fn send;
@@ -40,7 +49,7 @@ bool talk_packet_read(talk_packet_t *out, const uint8_t *data, size_t size);
 void talk_audio_encode(uint8_t *out, const int16_t *pcm);
 /** Decode one validated block to TALK_SAMPLES signed 16-bit samples. */
 void talk_audio_decode(int16_t *out, const uint8_t *data);
-/** Initialize callbacks and identity. The transport copies callback buffers before returning. */
+/** Initialize identity and callbacks. The sender broadcasts each packet. Playback identifies turns for buffer resets. */
 void talk_core_init(talk_core_t *core, const uint8_t mac[6], uint32_t boot,
                     talk_send_fn send, talk_play_fn play, void *user);
 /** Advance heartbeats, bounded request retries, talk timeout and peer expiry. */

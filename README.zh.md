@@ -46,7 +46,7 @@ description: "使用独立的硬件资料、源码模板、UI 主题和 Agent Sk
 <a id="give-this-kit-to-an-agent"></a>
 ## 交给其他 Agent
 
-复制 [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) 给常用 Agent，再描述想做的应用。文案指向固定的 [v0.3.5 Agent 入口](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.5/AGENTS.md)；同版本完整资源包可从 [v0.3.5 源码 ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.5.zip) 获取。接收方 Agent 先读 [AGENTS.md](AGENTS.md) 和 [SKILL.md](SKILL.md)，再下载该版本资源。支持 Skill 安装的工具必须保留整个目录，包括资源和脚本。
+复制 [COPY_TO_AGENT.txt](COPY_TO_AGENT.txt) 给常用 Agent，再描述想做的应用。文案指向固定的 [v0.3.10 Agent 入口](https://github.com/suoyousheng-bot/sugarat-hardware-kit/blob/v0.3.10/AGENTS.md)；同版本完整资源包可从 [v0.3.10 源码 ZIP](https://github.com/suoyousheng-bot/sugarat-hardware-kit/archive/refs/tags/v0.3.10.zip) 获取。接收方 Agent 先读 [AGENTS.md](AGENTS.md) 和 [SKILL.md](SKILL.md)，再下载该版本资源。支持 Skill 安装的工具必须保留整个目录，包括资源和脚本。
 
 可用 `python3 scripts/kit.py prompt --repo <repository-url> --ref <release-tag-or-commit> --task <application-request>` 为实际发布地址生成一句话。此命令只生成文字，不发布仓库，也不检查访问权限；产品的复制按钮可以直接复制其输出。
 
@@ -207,7 +207,7 @@ Sugarat 玩法社区中提供「做同款」的官方玩法，完整源码都在
 | --- | --- | --- | --- | --- |
 | `lz-3d` | lz Real-Time 3D Character | 1.0.0 | 1.0.0 | [lz-3d.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/lz-3d.tar.gz) |
 | `pomodoro-alarm` | Pomodoro Alarm | 1.1.0 | 1.1.0 | [pomodoro-alarm.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/pomodoro-alarm.tar.gz) |
-| `squad-talk` | Squad Talk | 0.1.3 | 0.1.3 | [squad-talk.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/squad-talk.tar.gz) |
+| `squad-talk` | Squad Talk | 0.2.0 | 0.2.0 | [squad-talk.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.10/squad-talk.tar.gz) |
 | `sugarat-armor` | Armor Fly | 0.1.12 | 0.1.12 | [sugarat-armor.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.9/sugarat-armor.tar.gz) |
 | `sugarat-beat` | Sugarat Beat | 0.1.3 | 0.1.3 | [sugarat-beat.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-beat.tar.gz) |
 | `sugarat-bird` | Pocket Bird | 0.1.0 | 0.1.0 | [sugarat-bird.tar.gz](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/download/v0.3.5/sugarat-bird.tar.gz) |
@@ -238,7 +238,7 @@ Pocket Companion 和 Round Race 的源码比社区镜像更新，其余源码与
 <a id="publishing"></a>
 ## 发布
 
-当前资源包和各玩法源码附件见 [Sugarat 硬件开发资源包 v0.3.5](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.5)。发布衍生版本时请参阅[发布说明](references/publishing.md)。
+当前资源包和各玩法源码附件见 [Sugarat 硬件开发资源包 v0.3.10](https://github.com/suoyousheng-bot/sugarat-hardware-kit/releases/tag/v0.3.10)。发布衍生版本时请参阅[发布说明](references/publishing.md)。
 
 ## 开发备注
 

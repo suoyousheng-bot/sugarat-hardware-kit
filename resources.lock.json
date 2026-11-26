@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "kitVersion": "0.3.9",
+  "kitVersion": "0.3.10",
   "productId": "sugarat-esp32s3-round",
-  "snapshotDate": "2026-11-25",
+  "snapshotDate": "2026-11-26",
   "board": "boards/sugarat-esp32s3-round.json",
   "template": {
     "archive": "assets/templates/sugarat-esp32s3-basic-v1.tar.gz",
