@@ -1,0 +1,8 @@
+**/build/
+**/managed_components/
+**/dependencies.lock
+**/sdkconfig.old
+**/__pycache__/
+.DS_Store
+.env
+.env.*

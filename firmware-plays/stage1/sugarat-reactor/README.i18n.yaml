@@ -1,0 +1,13 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write firmware-plays/stage1/sugarat-reactor/README.md
+/:
+  en: f0bd5176d3458c59
+  zh: 634d9467cfbefa5c
+/sugarat-reactor:
+  en: 7dc7165bb0ebf7c3
+  zh: 6287ec61b4c81260
+/sugarat-reactor/build:
+  en: 8eb9f8f077340b2a
+  zh: 5efd41a1c70e0d29

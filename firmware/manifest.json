@@ -1,0 +1,22 @@
+{
+  "snapshotDate": "2026-11-27",
+  "images": [
+    {
+      "file": "firmware/sugarat_reactor.bin",
+      "project": "sugarat_reactor",
+      "version": "0.2.0",
+      "bytes": 1793008,
+      "sha256": "abb6692c6a5008fb2e3e6b05dafa9f08518ff3cb36dd82310f331e805066d3ed",
+      "source": "firmware-plays/stage1/sugarat-reactor"
+    },
+    {
+      "file": "firmware/sugarat_reactor_side.bin",
+      "project": "sugarat_reactor_side",
+      "version": "0.1.2",
+      "bytes": 2936912,
+      "sha256": "1796a496cd38285d9dce8df8af7625afb0adeeb7eb03431542de1f7d111a3e45",
+      "source": "firmware-plays/stage1/sugarat-reactor-side"
+    }
+  ],
+  "deviceValidation": "Not performed during this upload."
+}
